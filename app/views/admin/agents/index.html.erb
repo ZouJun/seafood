@@ -1,0 +1,35 @@
+<% content_for :content_for do %>
+    <ol class="breadcrumb">
+      <li><a href="#">代理商管理</a></li>
+      <li class="active">列表</li>
+    </ol>
+<div class="add">
+  <%= link_to '新增', new_admin_agent_path, class: "btn btn-primary" %>
+</div>
+    <table class="table table-bordered">
+      <tr>
+        <td>序号</td>
+        <td>姓名</td>
+        <td>登陆账号</td>
+        <td>电子邮箱</td>
+        <td>联系方式</td>
+        <td>地址</td>
+        <td>创建时间</td>
+        <td>状态</td>
+      </tr>
+
+      <% @agents.each do |agent|%>
+      <tr>
+        <td><%= agent.id %></td>
+        <td><%= agent.name %></td>
+        <td><%= agent.login %></td>
+        <td><%= agent.email %></td>
+        <td><%= agent.mobile %></td>
+        <td><%= agent.address %></td>
+        <td><%= agent.created_at %></td>
+        <td><%= agent.status_name %></td>
+      </tr>
+          <% end %>
+    </table>
+
+<% end %>

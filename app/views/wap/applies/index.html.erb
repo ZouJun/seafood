@@ -1,0 +1,8 @@
+
+<% @categories.life.each do |f|%>
+<%= link_to f.name, ordering_wap_applies_path(category_id: f.id) , data:{ confirm: '确认预约？'}, class: "btn btn-primary btn-lg btn-block"%>
+<% end %>
+    <br/><br/>
+<% @categories.service.each do |f|%>
+<%= link_to f.name, ordering_wap_applies_path(category_id: f.id) , data:{ confirm: '确认预约？'},class: "btn btn-primary btn-lg btn-block"%>
+<% end %>
