@@ -6,6 +6,8 @@ class Wap::BaseController < ApplicationController
 
   private
   def current_user
-    User.first
+    @user = User.first
+    session[:user_id] = @user.id
+    @user
   end
 end

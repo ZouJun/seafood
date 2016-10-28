@@ -5,6 +5,8 @@ class SessionsController < ApplicationController
       if account = Account.authenticated(params[:login], params[:password])
         session[:account_id] = account.id
         redirect_to admin_agents_path, notice: '登陆成功'
+      else
+        redirect_to :back, notice: '账号或密码错误'
       end
     else
       if agent = Agent.authenticated(params[:login], params[:password])

@@ -1,0 +1,13 @@
+<script>
+
+  <% if flash[:notice] %>
+    showTip('<%= flash[:notice] %>', 'success')
+  <% elsif flash[:alert] %>
+  showTip('<%= flash[:alert] %>', 'warning')
+  <% end %>
+
+  function showTip(tip, type)
+  {
+    var $tip = $('#tip');
+    $tip.attr('class', 'alert alert-' + type).text(tip).css('margin-left', - $tip.outerWidth() / 2).fadeIn(500).delay(2000).fadeOut(500);}
+</script>

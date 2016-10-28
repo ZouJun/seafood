@@ -16,7 +16,7 @@ gem 'carrierwave'
 gem "ckeditor", "4.0.4"
 
 gem "nested_form"
-
+gem "meta_search"
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'whenever', :require => false
 gem 'test-unit'

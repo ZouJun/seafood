@@ -1,7 +1,7 @@
 class Category < ActiveRecord::Base
 
   has_many :orders
-
+  paginates_per 8
   acts_as_enum :category_type, :in => [
       ['life', 1, '生活类'],
       ['service', 2, '服务类']

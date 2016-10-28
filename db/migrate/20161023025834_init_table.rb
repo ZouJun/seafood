@@ -8,8 +8,11 @@ class InitTable < ActiveRecord::Migration
       t.string :mobile
       t.string :address
       t.string :description
+      t.integer :admin_allocation_type
+      t.integer :agent_allocation_type
       t.string :order_status
-      t.integer :status, :default => 1
+      t.integer :admin_status, :default => 1
+      t.integer :agent_status, :default => 1
       t.integer :category_id
       t.integer :user_id
       t.integer :agent_id
@@ -45,6 +48,7 @@ class InitTable < ActiveRecord::Migration
       t.string :email
       t.string :tel
       t.string :address
+      t.integer :proxy_type
       t.integer :province_id, :default => 9, :null => false
       t.integer :city_id, :default => 73, :null => false
       t.integer :district_id, :default => 702, :null => false
@@ -84,6 +88,7 @@ class InitTable < ActiveRecord::Migration
       t.integer :district_id, :default => 702, :null => false
       t.string :description
       t.integer :status, :default => 1
+      t.integer :agent_id
 
       t.timestamps
     end

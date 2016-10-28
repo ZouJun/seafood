@@ -6,7 +6,7 @@
         <li role="presentation" class="<%= parent_class if current_page?(admin_agents_path) %>">
           <a href="<%= admin_agents_path %>">代理商管理</a></li>
         <li role="presentation" class="<%= parent_class if current_page?(admin_bookings_path) %>">
-          <a href="<%= admin_bookings_path %>">预约管理</a></li>
+          <a href="<%= admin_bookings_path %>">订单管理</a></li>
         <li role="presentation" class="<%= parent_class if current_page?(admin_menus_path) %>">
           <a href="<%= admin_menus_path %>">预约菜单管理</a></li>
       </ul>
@@ -15,7 +15,9 @@
   <% if session[:agent_id] %>
       <ul class="nav nav-pills nav-stacked" role="tablist">
         <li role="presentation" class="<%= parent_class if current_page?(admin_bookings_path) %>">
-          <a href="<%= agent_bookings_path %>">预约管理</a></li>
+          <a href="<%= agent_dispatchers_path %>">派送者管理</a></li>
+        <li role="presentation" class="<%= parent_class if current_page?(admin_bookings_path) %>">
+          <a href="<%= agent_bookings_path %>">订单管理</a></li>
       </ul>
   <% end %>
 

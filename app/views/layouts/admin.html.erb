@@ -15,11 +15,6 @@
   <%= yield :content_for %>
 </div>
 
-<% if flash[:notice] %>
-    <%= flash[:notice] %>
-<% elsif flash[:alert] %>
-    <%= flash[:alert] %>
-<% end %>
-<% flash.clear %>
+<%= render partial: 'layouts/notice'%>
 </body>
 </html>

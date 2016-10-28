@@ -1,0 +1,20 @@
+<% parent_class = "weui-bar__item_on"%>
+<div class="weui-tab">
+  <div class="weui-tab__panel">
+
+  </div>
+  <div class="weui-tabbar">
+    <a href="<%= wap_applies_path %>" class="weui-tabbar__item <%= parent_class if current_page?(wap_applies_path)%>">
+      <img src="/wap/image/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+      <p class="weui-tabbar__label">预约菜单</p>
+    </a>
+    <a href="<%= wap_searches_path %>" class="weui-tabbar__item <%= parent_class if current_page?(wap_searches_path)%>">
+      <img src="/wap/image/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+      <p class="weui-tabbar__label">查询页面</p>
+    </a>
+    <a href="<%= wap_users_path %>" class="weui-tabbar__item <%= parent_class if current_page?(wap_users_path)%>">
+      <img src="/wap/image/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+      <p class="weui-tabbar__label">个人信息</p>
+    </a>
+  </div>
+</div>

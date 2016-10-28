@@ -1,7 +1,8 @@
 class Admin::MenusController < Admin::BaseController
 
   def index
-    @categories = Category.normal
+    #@search = Category.normal.search(params[:search])
+    @categories = Category.page(params[:page])
   end
 
   def new

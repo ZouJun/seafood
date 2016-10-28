@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20161023025834) do
     t.string   "email"
     t.string   "tel"
     t.string   "address"
+    t.integer  "proxy_type"
     t.integer  "province_id",     :default => 9,   :null => false
     t.integer  "city_id",         :default => 73,  :null => false
     t.integer  "district_id",     :default => 702, :null => false
@@ -79,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20161023025834) do
     t.integer  "district_id",     :default => 702, :null => false
     t.string   "description"
     t.integer  "status",          :default => 1
+    t.integer  "agent_id"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
   end
@@ -91,14 +93,17 @@ ActiveRecord::Schema.define(:version => 20161023025834) do
     t.string   "mobile"
     t.string   "address"
     t.string   "description"
+    t.integer  "admin_allocation_type"
+    t.integer  "agent_allocation_type"
     t.string   "order_status"
-    t.integer  "status",        :default => 1
+    t.integer  "admin_status",          :default => 1
+    t.integer  "agent_status",          :default => 1
     t.integer  "category_id"
     t.integer  "user_id"
     t.integer  "agent_id"
     t.integer  "dispatcher_id"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
   end
 
   create_table "user_addresses", :force => true do |t|

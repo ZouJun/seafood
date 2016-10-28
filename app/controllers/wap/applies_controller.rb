@@ -17,6 +17,9 @@ class Wap::AppliesController < Wap::BaseController
   def order
     @order = Order.new(
         description: '这是新的预约，请及时处理',
+        username: current_user.name,
+        mobile: current_user.mobile,
+        address: current_user.address,
         category_id: @category.id,
         user_id: current_user.id
     )
