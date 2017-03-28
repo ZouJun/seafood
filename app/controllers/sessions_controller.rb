@@ -1,27 +1,40 @@
 class SessionsController < ApplicationController
+  skip_before_filter :page_can?
+  layout 'application'
 
   def create
-    if params[:login_type].to_i == 1
-      if account = Account.authenticated(params[:login], params[:password])
-        session[:account_id] = account.id
-        redirect_to admin_agents_path, notice: '登陆成功'
+    staff = Staff.authenticated(params[:login], params[:password])
+    if staff
+      if staff.normal?
+        if staff.role.role_permission_maps.blank?
+          return redirect_to :back, notice: '您还没有进入系统的权限!'
+        else
+          session[:staff_id] = staff.id
+          redirect_to admin_home_url, notice: '登陆成功!'
+        end
       else
-        redirect_to :back, notice: '账号或密码错误'
+        return redirect_to :back, notice: '账号已被冻结，请联系相关部门人员进行解冻操作!'
       end
     else
-      if agent = Agent.authenticated(params[:login], params[:password])
-        session[:agent_id] = agent.id
-        redirect_to agent_bookings_path, notice: '登陆成功'
-      end
+      return redirect_to :back, notice: '账号或密码错误!'
     end
   end
 
   def destroy
-    if session[:account_id]
-    session[:account_id] = nil
+    if session[:admin_id]
+      session[:admin_id] = nil
     end
-    if session[:agent_id]
-      session[:agent_id] = nil
+
+    if session[:manage_id]
+      session[:manage_id] = nil
+    end
+
+    if session[:personnel_id]
+      session[:personnel_id] = nil
+    end
+    
+    if session[:staff_id]
+      session[:staff_id] = nil
     end
     redirect_to sign_in_url
   end

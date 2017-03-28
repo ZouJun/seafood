@@ -3,18 +3,26 @@
 <head>
   <title>Appointment</title>
   <%= stylesheet_link_tag "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
+  <link rel="stylesheet" href="/css/customize.css">
+  <%= javascript_include_tag "application", "/js/bootstrap-datetimepicker.js" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= render partial: '/layouts/head' %>
+	<%= render partial: '/layouts/head' %>
 
-<%= render partial: '/layouts/left_partial' %>
-<div class="right">
-  <%= yield :content_for %>
-</div>
+	<%= render partial: '/layouts/left_partial' %>
+	<div class="right">
+	  <%= yield :content_for %>
+	</div>
 
-<%= render partial: 'layouts/notice'%>
+	<%= render partial: 'layouts/notice'%>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.datetimepicker').datetimepicker();
+      })
+    </script>
 </body>
 </html>

@@ -1,0 +1,55 @@
+<% content_for :content_for do %>
+    <ol class="breadcrumb">
+      <li><a href="#">角色管理</a></li>
+      <li class="active">列表</li>
+    </ol>
+    <div class="add">
+      <div class="form-inline" role="form">
+        <%= form_for @search, :url => admin_roles_path, :html => {:method => :get} do |f| %>
+            <div class="form-group">
+              <label for="exampleInputEmail2">角色名称:</label>
+              <%= f.text_field :name_like, class: "form-control", id: "inputPassword2" %>
+            </div>
+            <div class="form-group admin_staff_search">
+              <label for="exampleInputEmail2">排序:</label>
+              <%= f.text_field :sort_eq, class: "form-control", id: "exampleInputEmail2" %>
+            </div>
+            <!-- <div class="form-group admin_staff_search admin_staff_top"> -->
+            <%= f.submit '搜索', class: "btn btn-primary" %>
+            <%= link_to '新增', new_admin_role_path, class: "btn btn-primary" %>
+            <!-- </div> -->
+        <% end %>
+      </div>
+    </div>
+    <table class="table table-bordered">
+      <tr>
+        <td>序号</td>
+        <td>角色名称</td>
+        <td>描述</td>
+        <td>页面权限</td>
+        <td>创建时间</td>
+        <td>状态</td>
+        <td>操作</td>
+      </tr>
+
+      <% @roles.each do |role| %>
+          <tr>
+            <td><%= role.id %></td>
+            <td><%= role.name %></td>
+            <td><%= role.description %></td>
+            <td><%= role.role_permission_maps.map{|m| m.permission.name}.join(',') %></td>
+            <td><%= role.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+            <td><%= role.status_name %></td>
+            <td>
+              <%= link_to '恢复', normal_admin_role_path(role), data: {confirm: '确认恢复该角色?'}, method: :put if role.disabled? %>
+              <%= link_to '禁用', disabled_admin_role_path(role), data: {confirm: '确认禁用该角色?'}, method: :put if role.normal? %>
+              <%= link_to '编辑', edit_admin_role_path(role), data: {confirm: '确认编辑该角色?'} if role.normal? %>
+            </td>
+          </tr>
+      <% end %>
+      <% if @roles.blank?%>
+        <td colspan="7" style="color: green">暂无相关人员</td>
+      <% end%>
+    </table>
+    <%= paginate @roles %>
+<% end %>

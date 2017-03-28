@@ -1,0 +1,61 @@
+<% content_for :content_for do %>
+    <ol class="breadcrumb">
+      <li><a href="#">仓库管理</a></li>
+      <li><a href="#">仓库列表</a></li>
+      <li class="active">列表</li>
+    </ol>
+    <div class="add">
+      <div class="form-inline" role="form">
+        <%= form_for @search, :url => admin_warehouses_path, :html => {:method => :get} do |f| %>
+            <div class="form-group">
+              <label for="exampleInputEmail2">仓库名称:</label>
+              <%= f.text_field :name_like, class: "form-control", id: "inputPassword2" %>
+            </div>
+            <div class="form-group admin_staff_search">
+              <label for="exampleInputEmail2">排序:</label>
+              <%= f.text_field :scale_eq, class: "form-control", id: "exampleInputEmail2" %>
+            </div>
+            <!-- <div class="form-group admin_staff_search admin_staff_top"> -->
+            <%= f.submit '搜索', class: "btn btn-primary" %>
+            <%= link_to '新增', new_admin_warehouse_path, class: "btn btn-primary" %>
+            <!-- </div> -->
+        <% end %>
+      </div>
+    </div>
+    <table class="table table-bordered">
+      <tr>
+        <td>序号</td>
+        <td>仓库名称</td>
+        <td>仓库规模</td>
+        <td>仓库容量</td>
+        <td>所在省</td>
+        <td>所在市</td>
+        <td>所在区</td>
+        <td>仓库地址</td>
+        <td>创建时间</td>
+        <td>状态</td>
+        <td>操作</td>
+      </tr>
+
+      <% @warehouses.each do |warehouse| %>
+          <tr>
+            <td><%= warehouse.id %></td>
+            <td><%= warehouse.name %></td>
+            <td><%= warehouse.size_name %></td>
+            <td><%= warehouse.scale %></td>
+            <td><%= warehouse.province.name %></td>
+            <td><%= warehouse.city.name %></td>
+            <td><%= warehouse.district.name %></td>
+            <td><%= warehouse.address %></td>
+            <td><%= warehouse.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+            <td><%= warehouse.status_name %></td>
+            <td>
+              <%= link_to '编辑', edit_admin_warehouse_path(warehouse), data: {confirm: '确认编辑该仓库信息?'} if warehouse.normal? %>
+              <%= link_to '恢复', normal_admin_warehouse_path(warehouse), data: {confirm: '确认恢复该仓库?'}, method: :put if warehouse.disabled? %>
+              <%= link_to '禁用', disabled_admin_warehouse_path(warehouse), data: {confirm: '确认禁用该仓库?'}, method: :put if warehouse.normal? %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+    <%= paginate @warehouses %>
+<% end %>

@@ -1,0 +1,29 @@
+__filename = "员工信息表.xls"
+sheet1 = xls.create_worksheet
+system_header = ['姓名', '员工编号', '所属部门', '所属仓库', '性别', '出生年-月-日', '年龄', '电子邮箱', 'QQ', '微信', '联系方式', '所属省', '所属市', '所属区', '详细地址', '录入时间','状态']
+sheet1.row(0).concat(system_header)
+row_number = 1
+@staffs.page(params[:page_exl]).per(EXPORTING_COUNT).each do |staff|
+  row_content = [
+                     staff.try(:name),
+                     staff.try(:no),
+                     staff.department.try(:name),
+                     staff.try(:warehouse).try(:name),
+                     staff.gender_name,
+                     [staff.try(:years),staff.try(:months),staff.try(:days)].join('-'),
+                     staff.try(:age),
+                     staff.try(:email),
+                     staff.try(:qq),
+                     staff.try(:weixin),
+                     staff.mobile,
+                     staff.province.try(:name),
+                     staff.city.try(:name),
+                     staff.district.try(:name),
+                     staff.address,
+                     staff.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+                     staff.status_name
+                   
+  ]
+  sheet1.row(row_number).replace(row_content)
+  row_number += 1
+end

@@ -1,0 +1,23 @@
+__filename = "商品信息表.xls"
+sheet1 = xls.create_worksheet
+system_header = ['商品名称', '商品编号', '商品价格', '生产日期', '保质期', '储藏条件', '产品特点', '产品种类', '运输事宜', '录入时间', '状态']
+sheet1.row(0).concat(system_header)
+row_number = 1
+@products.page(params[:page_exl]).per(EXPORTING_COUNT).each do |product|
+  row_content = [
+                     product.name ,
+                     product.try(:no),
+                     product.price,
+                     product.expiration_date,
+                     product.produced_date,
+                     product.try(:store_condition),
+                     product.try(:feature),
+                     product.try(:category),
+                     product.try(:transport_condition),
+                     product.created_at,
+                     product.status_name
+                   
+  ]
+  sheet1.row(row_number).replace(row_content)
+  row_number += 1
+end

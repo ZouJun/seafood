@@ -2,11 +2,12 @@
 <html>
 <head>
   <title>Appointment</title>
-  <%= stylesheet_link_tag    "application", "customize", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag    "application", "/css/customize", :media => "all" %>
+  <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
+  <%= javascript_include_tag "application", "/js/bootstrap-datetimepicker.js" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="session_body">
 
 <%= yield %>
 

@@ -1,0 +1,39 @@
+<% content_for :content_for do %>
+    <ol class="breadcrumb">
+      <li><a href="#">角色管理</a></li>
+      <li class="active">编辑</li>
+    </ol>
+
+    <div class="add_agent">
+      <div class="form-inline" role="form">
+        <%= form_for @role, url: admin_role_path(@role) do |f| %>
+            <div class="form-group">
+            <label>角色名称:&nbsp</label>
+              <%= f.text_field :name, class: "form-control", id: "exampleInputEmail1", placeholder: "角色名称" %>
+              <!--<%#= f.text_field　:name, class: "form-control", id: "exampleInputEmail1", placeholder: "用户名" %>-->
+            </div>
+            <div class="form-group admin_staff_top ">
+              <label>角色序数:&nbsp</label>
+              <%= f.text_field :sort, class: "form-control", id: "exampleInputEmail1", placeholder: "角色序数" %>
+            </div>
+            <div class="form-group admin_staff_top">
+              <label>角色描述:&nbsp</label>
+              <%= f.text_field :description, class: "form-control", id: "exampleInputEmail1", placeholder: "角色描述" %>
+            </div>
+
+            <div class="form-group admin_staff_top">
+              <label>页面权限:&nbsp</label>
+                <% Permission.all.each do |permission| %> 
+                  <p>
+                    <%= check_box_tag 'permission[permission_ids][]', permission.id, @role.role_permission_maps.map{|m| m.permission_id}.include?(permission.id), @role.new_record? ? {checked: true} : {} %>
+                      <%= permission.name %>
+                  </p>
+                <% end %>
+            </div>
+            <div class="form-group admin_staff_top staff-submit">
+              <button type="submit" class="btn btn-primary">更新</button>
+            </div>
+        <% end %>
+      </div>
+  </div>
+<% end %>

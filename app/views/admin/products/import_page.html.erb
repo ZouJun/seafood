@@ -1,0 +1,15 @@
+<% content_for :content_for do %>
+    <ol class="breadcrumb">
+      <li><a href="#">商品管理</a></li>
+      <li><a href="#">商品录入</a></li>
+      <li class="active">信息导入</li>
+    </ol>
+
+	<div class="add">
+		<%= form_tag import_admin_products_path, multipart: true do %>
+	        <%= file_field_tag :file %>
+	        </br>
+	        <%= submit_tag "导入", class: "btn btn-primary" %>
+		<% end %>
+	</div>
+<% end %>

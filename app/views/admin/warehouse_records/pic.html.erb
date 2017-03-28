@@ -1,0 +1,73 @@
+<% content_for :content_for do %>
+    <script src="/js/echarts.min.js"></script>
+    <ol class="breadcrumb">
+      <li><a href="#">仓库管理</a></li>
+      <li><a class="active">仓库数据分析</a></li>
+    </ol>
+
+    <div class="add_agent">
+        <div id="chart1" style="width: 600px;height:400px;"></div>
+        <div id="chart2" style="width: 600px;height:400px;"></div>
+
+            <script type="text/javascript">
+                // 基于准备好的dom，初始化echarts实例
+                var chart1 = echarts.init(document.getElementById('chart1'));
+
+                // 指定图表的配置项和数据
+                var option = {
+                    title: {
+                        text: '仓库商品数据趋势图'
+                    },
+                    tooltip: {},
+                    legend: {
+                        data:['出库入记录分析','aaa']
+                    },
+                    xAxis: {
+                        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: '出库',
+                        type: 'line',
+                        data: [5, 20, 36, 10, 10, 20]
+                    },
+                    {
+                        name: '入库',
+                        type: 'line',
+                        data: [15, 2, 6, 1, 103, 20]
+                    }]
+                };
+                 chart1.setOption(option);
+
+
+                 // 基于准备好的dom，初始化echarts实例
+                var chart2 = echarts.init(document.getElementById('chart2'));
+
+                // 指定图表的配置项和数据
+                var option = {
+                    title: {
+                        text: '仓库出入库数据趋势图'
+                    },
+                    tooltip: {},
+                    legend: {
+                        data:['出库入记录分析','aaa']
+                    },
+                    xAxis: {
+                        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: '出库',
+                        type: 'line',
+                        data: [5, 20, 36, 10, 10, 20]
+                    },
+                    {
+                        name: '入库',
+                        type: 'line',
+                        data: [15, 2, 6, 1, 103, 20]
+                    }]
+                };
+                 chart2.setOption(option);
+            </script>
+    </div>
+<% end %>

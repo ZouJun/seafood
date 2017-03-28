@@ -6,3 +6,6 @@ Appointment::Application.config.session_store :cookie_store, key: '_appointment_
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rails generate session_migration")
 # Appointment::Application.config.session_store :active_record_store
+
+ Appointment::Application.config.session_store ActionDispatch::Session::CacheStore, :expire_after => 10.hours
+

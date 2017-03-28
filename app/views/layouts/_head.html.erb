@@ -30,14 +30,10 @@
       <ul class="nav navbar-nav navbar-right">
         <!--<li><a href="#">Link</a></li>-->
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_account.name%> <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_staff.name%> <span class="caret"></span></a>
           <div id="tip"></div>
           <ul class="dropdown-menu" role="menu">
-            <% if session[:account_id]%>
-            <li><a href="<%= edit_admin_password_path(current_account)%>">修改密码</a></li>
-            <% else %>
-            <li><a href="<%= edit_agent_password_path(current_account)%>">修改密码</a></li>
-            <% end %>
+            <li><a href="<%= edit_admin_password_path(current_staff)%>">修改密码</a></li>
             <!--<li><a href="#">消息通知</a></li>-->
             <li class="divider"></li>
             <li><%= link_to '退出', sign_up_path, data: {confirm: '确定退出？'}%></li>

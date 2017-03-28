@@ -1,0 +1,101 @@
+<% content_for :content_for do %>
+    <ol class="breadcrumb">
+      <li><a href="#">仓库管理</a></li>
+      <li><a href="#">仓库列表</a></li>
+      <li class="active">新增</li>
+    </ol>
+
+    <div class="add_agent">
+    <div class="form-inline" role="form">
+    <%= form_for @warehouse, url: admin_warehouses_path do |f| %>
+        <div class="form-group">
+        <label>仓库名称:&nbsp;&nbsp;&nbsp</label>
+          <%= f.text_field :name, class: "form-control", placeholder: "仓库名称" %>
+        </div>
+        <div class="form-group admin_staff_top">
+        <label>仓库规模:&nbsp;&nbsp;&nbsp</label>
+          <%= f.select :size, Warehouse.size_options, {},class: "select_css", placeholder: "仓库规模" %>
+        </div>
+        <div class="form-group admin_staff_top">
+        <label>仓库容量:&nbsp;&nbsp</label>
+          <%= f.text_field :scale, class: "form-control", placeholder: "仓库容量" %>
+        </div>
+        <div class="form-group admin_staff_top">
+        <label>仓库所在省:&nbsp</label>
+          <%= f.select :province_id, Province.all.map{|n| [n.name, n.id]}, {},class: "select_css" %>
+        </div>
+        <div class="form-group admin_staff_top">
+        <label>仓库所在市:&nbsp</label>
+          <%= f.select :city_id, City.all.map{|n| [n.name, n.id]}, {},class: "select_css" %>
+        </div>
+        <div class="form-group admin_staff_top">
+        <label>仓库所在地:&nbsp</label>
+          <%= f.select :district_id, District.all.map{|n| [n.name, n.id]}, {},class: "select_css"%>
+        </div>
+        <div class="form-group admin_staff_top">
+        <label>详细地址:&nbsp;&nbsp</label>
+          <%= f.text_field :address, class: "form-control", placeholder: "详细地址" %>
+        </div>
+        <div class="form-group admin_staff_top">
+        <button type="submit" class="btn btn-primary">提交</button>
+        </div>
+    <% end %>
+</div>
+</div>  
+
+<script>
+  $(document).ready(function() {
+    function refreshCityOptions(province_id) {
+      $.ajax({
+        url: "/cities",
+        data: { "province_id": province_id},
+        dataType: 'json',
+        success: function(result){
+          var options = $("#warehouse_city_id");
+          options.empty(); // remove old options
+
+          options.append($("<option></option>").attr("value", '').text('请选择城市'));
+
+          $.each(result, function(index, option) {
+            options.append($("<option></option>")
+                .attr("value", option.id).text(option.name));
+          });
+        }
+      });
+    }
+
+    $("#warehouse_province_id").on('change', function(e){
+      var province_id = $(this).val();
+
+      refreshCityOptions(province_id);
+    });
+
+  function refreshDistrictOptions(city_id) {
+      $.ajax({
+        url: "/districts",
+        data: { "city_id": city_id},
+        dataType: 'json',
+        success: function(result){
+          var options = $("#warehouse_district_id");
+          options.empty(); // remove old options
+
+          options.append($("<option></option>").attr("value", '').text('请选择地区'));
+
+          $.each(result, function(index, option) {
+            options.append($("<option></option>")
+                .attr("value", option.id).text(option.name));
+          });
+        }
+      });
+    }
+
+    $("#warehouse_city_id").on('change', function(e){
+      var city_id = $(this).val();
+
+      refreshDistrictOptions(city_id);
+    });
+  });
+
+
+</script>
+<% end %>

@@ -1,0 +1,73 @@
+<% content_for :content_for do %>
+    <ol class="breadcrumb">
+      <li><a href="#">员工管理</a></li>
+      <li><a href="#">部门(仓库)调动</a></li>
+      <li class="active">列表</li>
+    </ol>
+    <div class="add">
+      <div class="form-inline" role="form">
+        <%= form_for @search, :url => admin_staff_transfers_path, :html => {:method => :get} do |f| %>
+            <div class="form-group">
+              <label for="exampleInputEmail2">&nbsp;&nbsp;&nbsp姓&nbsp名:&nbsp;&nbsp;&nbsp</label>
+              <%= f.text_field :staff_name_like, class: "form-control" %>
+            </div>
+            <div class="form-group admin_staff_search">
+              <label for="exampleInputEmail2">性别:</label>
+              <%= f.select :staff_gender_eq, Staff.gender_options, {},class: "select_css" %>
+            </div>
+            <div class="form-group admin_staff_search">
+              <label for="exampleInputEmail2">员工编号:</label>
+              <%= f.text_field :staff_no_eq, class: "form-control" %>
+            </div>
+            <div class="form-group admin_staff_top">
+              <label for="exampleInputEmail2">联系方式:</label>
+              <%= f.text_field :staff_mobile_like, class: "form-control"%>
+            </div>
+            <div class="form-group admin_staff_search admin_staff_top">
+            <%= f.submit '搜索', class: "btn btn-primary" %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+    <table class="table table-bordered">
+      <tr>
+        <td>序号</td>
+        <td>员工编号</td>
+        <td>姓名</td>        
+        <td>联系方式</td>
+        <td>是否部门调动</td>
+        <td>调动前部门</td>
+        <td>调动后部门</td>
+        <td>是否仓库调动</td>
+        <td>调动前仓库</td>
+        <td>调动后仓库</td>
+        <td>调动时间</td>
+        <td>操作员</td>
+        <td>操作员工号</td>
+        <td>操作</td>
+      </tr>
+
+      <% @staff_transfers.each do |staff_transfer| %>
+          <tr>
+            <td><%= staff_transfer.id %></td>
+            <td><%= staff_transfer.staff.no %></td>
+            <td><%= staff_transfer.staff.name %></td>
+            <td><%= staff_transfer.staff.mobile %></td>
+            <td><%= staff_transfer.is_department_name %></td>
+            <td><%= Department.find(staff_transfer.before_department_id).name if staff_transfer.is_department &&  staff_transfer.before_department_id %></td>
+            <td><%= Department.find(staff_transfer.department_id) if staff_transfer.is_department && staff_transfer.department_id%></td>
+            <td><%= staff_transfer.is_warehouse_name %></td>
+            <td><%= Warehouse.find(staff_transfer.before_warehouse_id).name if staff_transfer.is_warehouse && staff_transfer.before_warehouse_id %></td>
+            <td><%= Warehouse.find(staff_transfer.warehouse_id) if staff_transfer.is_warehouse && staff_transfer.warehouse_id %></td>
+            <td><%= staff_transfer.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+            <td><%= Staff.find(staff_transfer.operator_id).name %></td>
+            <td><%= Staff.find(staff_transfer.operator_id).no %></td>
+            <td>
+              <%#= link_to '解冻', normal_admin_staff_path(staff), data: {confirm: '确认解冻该账号?'}, method: :put if staff.disabled? %>
+              <%#= link_to '冻结', disabled_admin_staff_path(staff), data: {confirm: '确认冻结该账号?'}, method: :put if staff.normal? %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+    <%= paginate @staff_transfers %>
+<% end %>

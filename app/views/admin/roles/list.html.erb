@@ -1,0 +1,52 @@
+<% content_for :content_for do %>
+    <ol class="breadcrumb">
+      <li><a href="#">角色管理</a></li>
+      <li class="active">角色列表</li>
+    </ol>
+    <div class="add">
+      <div class="form-inline" role="form">
+        <%= form_for @search, :url => list_admin_roles_path, :html => {:method => :get} do |f| %>
+            <div class="form-group">
+              <label for="exampleInputEmail2">员工名称:</label>
+              <%= f.text_field :staff_name_like, class: "form-control", id: "inputPassword2" %>
+            </div>
+            <div class="form-group admin_staff_search">
+              <label for="exampleInputEmail2">角色名称:</label>
+              <%= f.text_field :role_name_like, class: "form-control", id: "exampleInputEmail2" %>
+            </div>
+            <!-- <div class="form-group admin_staff_search admin_staff_top"> -->
+            <%= f.submit '搜索', class: "btn btn-primary" %>
+            <!-- </div> -->
+        <% end %>
+      </div>
+    </div>
+    <table class="table table-bordered">
+      <tr>
+        <td>序号</td>
+        <td>员工名称</td>
+        <td>员工编号</td>
+        <td>角色名称</td>
+        <td>创建时间</td>
+        <td>更新时间</td>
+        <td>操作</td>
+      </tr>
+
+      <% @staff_role_maps.each do |staff_role_map| %>
+          <tr>
+            <td><%= staff_role_map.id %></td>
+            <td><%= staff_role_map.staff.name %></td>
+            <td><%= staff_role_map.staff.no %></td>
+            <td><%= staff_role_map.role.name %></td>
+            <td><%= staff_role_map.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+            <td><%= staff_role_map.updated_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+            <td>
+              <%= link_to '角色编辑', edit_role_admin_roles_path(staff_id: staff_role_map.staff.id), data: {confirm: '确认对该账号进行角色编辑操作?'} if staff_role_map.staff.normal? %>
+            </td>
+          </tr>
+      <% end %>
+      <% if @staff_role_maps.blank?%>
+        <td colspan="7" style="color: green">暂无相关人员</td>
+      <% end%>
+    </table>
+    <%= paginate @staff_role_maps %>
+<% end %>

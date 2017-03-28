@@ -7,7 +7,7 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: appointment_development
+  database: seafood_development
   pool: 5
   timeout: 5000
   username: root
@@ -20,23 +20,14 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: appointment_test
+  database: seafood_test
   pool: 5
   timeout: 5000
   username: root
   password: code
 
-production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
-
-masterkong_development:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  database: masterkong_development
-  pool: 5
-  username: root
-  password: code
+# production:
+#   adapter: sqlite3
+#   database: db/production.sqlite3
+#   pool: 5
+#   timeout: 5000

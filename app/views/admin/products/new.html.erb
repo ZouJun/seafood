@@ -1,0 +1,49 @@
+<% content_for :content_for do %>
+    <ol class="breadcrumb">
+      <li><a href="#">商品管理</a></li>
+      <li><a href="#">商品列表</a></li>
+      <li class="active">新增</li>
+    </ol>
+
+    <div class="add_agent">
+    <div class="form-inline" role="form">
+      <%= form_for @product, url: admin_products_path do |f| %>
+          <div class="form-group">
+          <label>商品名称:&nbsp</label>
+            <%= f.text_field :name, class: "form-control", placeholder: "商品名称" %>
+          </div>
+          <div class="form-group admin_staff_top">
+          <label>商品价格:&nbsp</label>
+            <%= f.text_field :price, class: "form-control", placeholder: "商品价格" %>
+          </div>
+          <div class="form-group admin_staff_top">
+          <label>生产日期:&nbsp</label>
+            <%= f.text_field :expiration_date, class: "form-control datetimepicker", placeholder: "生产日期" %>
+          </div>
+          <div class="form-group admin_staff_top">
+          <label>保&nbsp质&nbsp期:&nbsp;&nbsp</label>
+            <%= f.text_field :produced_date, class: "form-control", placeholder: "保质期" %>
+          </div>
+          <div class="form-group admin_staff_top">
+          <label>储藏条件:&nbsp</label>
+            <%= f.text_field :store_condition, class: "form-control", placeholder: "储藏条件" %>
+          </div>
+          <div class="form-group admin_staff_top">
+          <label>商品特点:&nbsp</label>
+            <%= f.text_field :feature, class: "form-control", placeholder: "特点" %>
+          </div>
+          <div class="form-group admin_staff_top">
+          <label>所属种类:&nbsp</label>
+            <%= f.text_field :category, class: "form-control", placeholder: "所属种类" %>
+          </div>
+          <div class="form-group admin_staff_top">
+          <label>运输事宜:&nbsp</label>
+            <%= f.text_field :transport_condition, class: "form-control", placeholder: "运输事宜" %>
+          </div>
+          <div class="form-group admin_staff_top">
+          <button type="submit" class="btn btn-default">提交</button>
+          </div>
+      <% end %>
+    </div>
+    </div>
+<% end %>

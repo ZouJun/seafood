@@ -1,0 +1,76 @@
+.message {
+    color: red;
+}
+
+#tip {
+    font-weight: bold;
+    position: absolute;
+    top: 50px;
+    width: 200px;
+    left: 50%;
+    display: none;
+    z-index: 9999;
+}
+
+.alert-warning {
+    color: #DC143C;
+}
+
+.left {
+    height: auto;
+    width: 13%;
+    float: left;
+    border-right: thin;
+}
+
+.right {
+    height: auto;
+    padding-right: 10px;
+    width: 85%;
+    float: right;
+}
+
+.add {
+    /*text-align: right;*/
+    padding-right: 5%;
+    padding-bottom: 20px;
+}
+
+.add_agent {
+    padding-right: 70%;
+}
+
+.session_body {
+    height: auto;
+    background: url(/login.png);
+}
+
+.session {
+    text-align: center;
+    padding-top: 250px;
+    padding-left: 35%;
+    padding-right: 30%;
+}
+
+.admin_staff_search {
+    padding-left: 35px
+}
+.admin_staff_top {
+    padding-top: 20px 
+}
+.select_css {
+    width: 240px;
+    height: 35px;
+}
+
+.a_css {
+    padding-left: 30px;
+}
+
+.staff-submit {
+    margin-left: 255px;
+}
+
+.hide {
+    display: none !important;
+}

@@ -1,0 +1,24 @@
+<% content_for :content_for do %>
+    <ol class="breadcrumb">
+      <li><a href="#">部门管理</a></li>
+      <li class="active">新增</li>
+    </ol>
+
+    <div class="add_agent">
+    <%= form_for @department, url: admin_departments_path do |f| %>
+        <div class="form-group">
+        <label>部门名称:&nbsp</label>
+          <%= f.text_field :name, class: "form-control", placeholder: "部门名称" %>
+        </div>
+        <div class="form-group">
+        <label>部门序数:&nbsp</label>
+          <%= f.text_field :sort, class: "form-control", placeholder: "部门序数" %>
+        </div>
+        <div class="form-group">
+        <label>部门描述:&nbsp</label>
+          <%= f.text_area :description, class: "form-control", placeholder: "部门描述" %>
+        </div>
+        <button type="submit" class="btn btn-primary">提交</button>
+    <% end %>
+</div>
+<% end %>

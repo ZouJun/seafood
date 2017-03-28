@@ -1,0 +1,21 @@
+__filename = "仓库商品出入库记录表.xls"
+sheet1 = xls.create_worksheet
+system_header = ['仓库名称', '仓库规模', '商品名称', '商品数量', '商品价格', '进出类型', '出(入)库时间', '操作员', '操作员工号']
+sheet1.row(0).concat(system_header)
+row_number = 1
+@warehouse_records.page(params[:page_exl]).per(EXPORTING_COUNT).each do |warehouse_record|
+  row_content = [
+                     warehouse_record.warehouse.name ,
+                     warehouse_record.warehouse.size_name,
+                     warehouse_record.product.name,
+                     warehouse_record.qty,
+                     warehouse_record.price,
+                     warehouse_record.record_type_name,
+                     warehouse_record.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                     warehouse_record.staff.name,
+                     warehouse_record.staff.no
+                   
+  ]
+  sheet1.row(row_number).replace(row_content)
+  row_number += 1
+end

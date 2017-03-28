@@ -1,26 +1,74 @@
 <% parent_class = ' active' %>
 
 <div class="left">
-  <% if session[:account_id] %>
       <ul class="nav nav-pills nav-stacked" role="tablist">
-        <li role="presentation" class="<%= parent_class if current_page?(admin_agents_path) %>">
-          <a href="<%= admin_agents_path %>">代理商管理</a></li>
-        <li role="presentation" class="<%= parent_class if current_page?(admin_bookings_path) %>">
-          <a href="<%= admin_bookings_path %>">订单管理</a></li>
-        <li role="presentation" class="<%= parent_class if current_page?(admin_menus_path) %>">
-          <a href="<%= admin_menus_path %>">预约菜单管理</a></li>
-      </ul>
-  <% end %>
 
-  <% if session[:agent_id] %>
-      <ul class="nav nav-pills nav-stacked" role="tablist">
-        <li role="presentation" class="<%= parent_class if current_page?(admin_bookings_path) %>">
-          <a href="<%= agent_dispatchers_path %>">派送者管理</a></li>
-        <li role="presentation" class="<%= parent_class if current_page?(admin_bookings_path) %>">
-          <a href="<%= agent_bookings_path %>">订单管理</a></li>
-      </ul>
-  <% end %>
+        <% if can?(1) || can?(2)%>
+           <li role="presentation" class="<%= parent_class if current_page?(admin_staffs_path) %>">
+           <a href="#staff" class="nav-header collapse" data-toggle="collapse"><i class="glyphicon glyphicon-user"></i>&nbsp员工管理</a> </li>
+            <ul id="staff" class="nav nav-list collapse">
+              <% if can?(1)%>
+                <li role="presentation" class="<%= parent_class if current_page?(admin_staffs_path) %>">
+                <a href="<%= admin_staffs_path %>" style="padding-left: 30px;">员工列表</a></li>
+              <% end %>
+              <% if can?(2)%>
+                <li role="presentation" class="<%= parent_class if current_page?(admin_staff_transfers_path) %>">
+                <a id="staff-manager" href="<%= admin_staff_transfers_path %>" style="padding-left: 30px;">部门(仓库)调动</a></li>
+              <% end %>
+            </ul>
+        <% end %>
 
+        <% if can?(3)%>
+          <li role="presentation" class="<%= parent_class if current_page?(admin_roles_path) %>"><a href="<%= admin_roles_path %>" class="nav-header <%= parent_class if current_page?(admin_roles_path) %>"><i class="glyphicon glyphicon-tasks"></i>&nbsp角色管理</a> </li>
+        <% end %>
+
+        <% if can?(4)%>
+          <li role="presentation" class="<%= parent_class if current_page?(admin_departments_path) %>"><a href="<%= admin_departments_path %>" class="nav-header <%= parent_class if current_page?(admin_departments_path) %>"><i class="glyphicon glyphicon-th-large"></i>&nbsp部门管理</a> </li>
+        <% end %>
+
+        <%if can?(5) || can?(6) || can?(7) || can?(8) %>
+          <li role="presentation" class="<%= parent_class if current_page?(admin_warehouses_path) %>"><a href="#warehouse" class="nav-header" data-toggle="collapse"><i class="glyphicon glyphicon-hdd"></i>&nbsp仓库管理</a></li> 
+          <ul id="warehouse" class="nav nav-list collapse">
+            <% if can?(5)%>
+              <li role="presentation" class="<%= parent_class if current_page?(admin_warehouses_path) %>">
+              <a href="<%= admin_warehouses_path %>" style="padding-left: 30px;">仓库录入</a></li>
+            <% end %>
+            <% if can?(6)%>
+              <li role="presentation" class="<%= parent_class if current_page?(admin_warehouse_products_path) %>">
+              <a href="<%= admin_warehouse_products_path %>" style="padding-left: 30px;">商品录入</a></li>
+            <% end %>
+            <% if can?(7)%>
+              <li role="presentation" class="<%= parent_class if current_page?(admin_warehouse_records_path) %>">
+              <a href="<%= admin_warehouse_records_path %>" style="padding-left: 30px;">出入库记录</a></li>
+            <% end %>
+            <% if can?(8)%>
+              <li role="presentation" class="<%= parent_class if current_page?(pic_admin_warehouse_records_path) %>">
+              <a href="<%= pic_admin_warehouse_records_path %>" style="padding-left: 30px;">仓库数据分析</a></li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <% if can?(9) || can?(10)%>
+          <li role="presentation" class="<%= parent_class if current_page?(admin_products_path) %>">
+            <a href="#product" class="nav-header" data-toggle="collapse"><i class="glyphicon glyphicon-briefcase"></i>&nbsp商品管理</a></li>
+           <ul id="product" class="nav nav-list collapse">
+             <% if can?(9) %>
+               <li role="presentation" class="<%= parent_class if current_page?(admin_products_path) %>">
+               <a href="<%= admin_products_path %>" style="padding-left: 30px;">商品录入</a></li>
+             <% end %>
+             <% if can?(10)%>
+               <li role="presentation" class="<%= parent_class if current_page?(pic_admin_products_path) %>">
+               <a href="<%= pic_admin_products_path %>" style="padding-left: 30px;">商品分析</a></li>
+             <% end %>
+           </ul>
+        <% end %>
+
+        <% if can?(11)%>
+          <li role="presentation" class="<%= parent_class if current_page?(admin_system_records_path) %>">
+            <a href="<%= admin_system_records_path %>"><i class="glyphicon glyphicon-cog"></i>&nbsp系统日志</a></li>
+        <% end %>
+      </ul>
+  </div>
 
 </div>
 

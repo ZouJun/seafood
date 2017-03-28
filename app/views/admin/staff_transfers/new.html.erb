@@ -1,0 +1,82 @@
+<% content_for :content_for do %>
+    <ol class="breadcrumb">
+      <li><a href="#">员工管理</a></li>
+      <li><a href="#">员工变迁</a></li>
+    </ol>
+
+    <div class="add_agent">
+    <%= form_for @staff_transfer, url: admin_staff_transfers_path do |f| %>
+        <%= hidden_field_tag :staff_id, @staff.id %>
+        <div class="form-group left-dis">
+          <label for="exampleInputEmail2">姓名:&nbsp;&nbsp<%= @staff.name %></label>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail2">员工编号:&nbsp;&nbsp<%= @staff.no %></label>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail2">是否部门调动&nbsp;&nbsp</label>
+          <%#= f.text_field :gender, Staff.gender_options, {},class: "select_css", id: "exampleInputEmail1" %>
+          <input type="checkbox" name="is_department" class="input" id="is_department">
+        </div>
+
+        <div id="department">
+          <div class="form-group">
+            <label for="exampleInputEmail2">调动前部门:&nbsp;&nbsp<%= @staff.department.name%></label>
+          </div>
+        </div>
+
+        <div class="form-group hide" id="after_department">
+            <label for="exampleInputEmail2">
+            调动后部门:&nbsp;&nbsp<%= f.select :department_id, Department.all.map{|m| [m.name, m.id]}, {} %></label>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail2">是否仓库调动&nbsp;&nbsp</label>
+          <input type="checkbox" name="is_warehouse" class="input" id="is_warehouse">
+        </div>
+
+        <div class="warehouse">
+          <div class="form-group">
+            <label for="exampleInputEmail2">调动前仓库:&nbsp;&nbsp<%= @staff.warehouse.name if @staff.warehouse %></label>
+          </div>
+        </div>
+
+        <div class="form-group hide" id="after_warehouse">
+            <label for="exampleInputEmail2">
+            调动前仓库:&nbsp;&nbsp<%= f.select :warehouse_id, Warehouse.all.map{|n| [n.name, n.id]}, {}%></label>
+        </div>
+           
+
+        <button type="submit" class="btn btn-primary">提交</button>
+    <% end %>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#is_department').click(function(){
+      // alert($(this).val())
+       // var department_val = $(this).val();
+       if($('#is_department').is(":checked")){
+        $('#after_department').removeClass("hide");
+       }
+       else {
+        $('#after_department').addClass("hide");
+       }
+    })
+
+
+    $('#is_warehouse').click(function(){
+      // alert($(this).val())
+       // var department_val = $(this).val();
+       if($('#is_warehouse').is(":checked")){
+        $('#after_warehouse').removeClass("hide");
+       }
+       else {
+        $('#after_warehouse').addClass("hide");
+       }
+    })
+  })
+
+</script>
+
+<% end %>
