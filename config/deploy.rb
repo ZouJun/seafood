@@ -5,7 +5,7 @@ require 'rvm/capistrano'
 set :rvm_ruby_string, '2.1.5' # Change to your ruby version
 set :rvm_type, :user # :user if RVM installed in $HOME
 
-set :repository, 'git@github.com:ZouJun/appointment.git'
+set :repository, 'git@github.com:ZouJun/seafood.git'
 set :scm, :git
 # set :admin_runner, 'root'
 set :use_sudo, false
