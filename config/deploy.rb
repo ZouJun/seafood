@@ -23,8 +23,8 @@ set :keep_releases, 5
 # 主站的程序部署在 web1.winwemedia.com、 web2.winwemedia.com 上
 task :production do
   set :user, 'deploy'
-  role :app, *%w[xzou.club]
-  role :db, 'xzou.club', primary: true
+  role :app, *%w[139.129.60.70]
+  role :db, '139.129.60.70', primary: true
 
   config_deploy
 
