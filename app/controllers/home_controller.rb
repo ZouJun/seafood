@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-
+	skip_before_filter :page_can?
 	def index
 		if session[:staff_id]
 			redirect_to admin_home_path
