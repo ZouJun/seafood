@@ -28,9 +28,9 @@
         <!-- <td>操作</td> -->
       </tr>
 
-      <% @system_records.each do |system_record| %>
+      <% @system_records.each_with_index do |system_record, index| %>
           <tr>
-            <td><%= system_record.id %></td>
+            <td><%= index + 1 %></td>
             <td><%= get_operator(system_record.operator_id, system_record.operator_type) %></td>
             <td><%= system_record.operator_type %></td>
             <td><%= get_operatorable(system_record.operatorable_type) %></td>

@@ -44,6 +44,7 @@
               <%= link_to '恢复', normal_admin_department_path(department), data: {confirm: '确认恢复该部门?'}, method: :put if department.disabled? %>
               <%= link_to '禁用', disabled_admin_department_path(department), data: {confirm: '确认禁用该部门?'}, method: :put if department.normal? %>
               <%= link_to '编辑', edit_admin_department_path(department), data: {confirm: '确认编辑该部门?'} if department.normal? %>
+              <%= link_to '删除', admin_department_path(department), data: {confirm: '确认删除该部门?', method: :delete}%>
             </td>
           </tr>
       <% end %>

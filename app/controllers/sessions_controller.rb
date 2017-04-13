@@ -2,6 +2,9 @@ class SessionsController < ApplicationController
   skip_before_filter :page_can?
   layout 'application'
 
+  def new
+  end
+
   def create
     staff = Staff.authenticated(params[:login], params[:password])
     if staff
@@ -21,18 +24,6 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    if session[:admin_id]
-      session[:admin_id] = nil
-    end
-
-    if session[:manage_id]
-      session[:manage_id] = nil
-    end
-
-    if session[:personnel_id]
-      session[:personnel_id] = nil
-    end
-    
     if session[:staff_id]
       session[:staff_id] = nil
     end

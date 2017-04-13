@@ -9,11 +9,13 @@ class Admin::PasswordsController < Admin::BaseController
     @staff = Staff.find(params[:id])
     if params[:staff][:current_password]
       if !@staff.authenticate(params[:staff][:current_password])
-        return redirect_to :back, notice: '当前密码为空或不正确'
+        return redirect_to :back, notice: '旧密码为空或不正确'
       elsif params[:staff][:password].blank?
         return redirect_to :back, notice: '新密码不能为空'
       elsif params[:staff][:password] != params[:staff][:password_confirmation]
         return redirect_to :back, notice: '前后输入密码不一致'
+      elsif params[:staff][:current_password] == params[:staff][:password]
+        return redirect_to :back, notice: '新密码与旧密码必须不一致'
       end
     end
 
