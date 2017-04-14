@@ -33,6 +33,12 @@ class SystemRecord < ActiveRecord::Base
 			if system_record.update_attributes!(action: action, operator_id: operator_id, operator_type: operator_type)
 				return true
 			end
+		when 'warehouse_record'
+			warehouse_record = WarehouseRecord.find(object_id)
+			system_record = warehouse_record.system_records.build
+			if system_record.update_attributes!(action: action, operator_id: operator_id, operator_type: operator_type)
+				return true
+			end
 		else
 			puts "aa"
 		end

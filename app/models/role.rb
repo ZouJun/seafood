@@ -5,6 +5,7 @@ class Role < ActiveRecord::Base
 
   has_many :role_permission_maps
   has_many :staffs
+  has_many :staff_transfers
   has_many :system_records, as: :operatorable
   
   acts_as_enum :status, :in => [

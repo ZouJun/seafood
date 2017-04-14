@@ -11,16 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161023025834) do
+ActiveRecord::Schema.define(:version => 20170414031214) do
 
   create_table "cities", :force => true do |t|
-    t.string   "name"
+    t.string   "name",                       :null => false
     t.string   "pinyin"
-    t.integer  "sort"
-    t.integer  "province_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "province_id", :default => 9, :null => false
+    t.integer  "sort",        :default => 0, :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
+
+  add_index "cities", ["province_id"], :name => "index_cities_on_province_id"
 
   create_table "departments", :force => true do |t|
     t.string   "name",                       :null => false
@@ -32,13 +34,15 @@ ActiveRecord::Schema.define(:version => 20161023025834) do
   end
 
   create_table "districts", :force => true do |t|
-    t.string   "name"
+    t.string   "name",                       :null => false
     t.string   "pinyin"
-    t.integer  "sort"
-    t.integer  "city_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "city_id",    :default => 73, :null => false
+    t.integer  "sort",       :default => 0,  :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
+
+  add_index "districts", ["city_id"], :name => "index_districts_on_city_id"
 
   create_table "permissions", :force => true do |t|
     t.string   "name",                       :null => false
@@ -65,11 +69,11 @@ ActiveRecord::Schema.define(:version => 20161023025834) do
   end
 
   create_table "provinces", :force => true do |t|
-    t.string   "name"
+    t.string   "name",                      :null => false
     t.string   "pinyin"
-    t.integer  "sort"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "sort",       :default => 0, :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   create_table "role_permission_maps", :force => true do |t|
@@ -102,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20161023025834) do
     t.string   "operator_type",                       :null => false
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
+    t.integer  "role_id"
   end
 
   create_table "staffs", :force => true do |t|

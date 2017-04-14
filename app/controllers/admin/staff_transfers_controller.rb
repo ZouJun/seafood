@@ -29,8 +29,11 @@ class Admin::StaffTransfersController < Admin::BaseController
 				@staff_transfer.is_department = 1
 				@staff_transfer.before_department_id = @staff.department_id
 				@staff_transfer.department_id = params[:staff_transfer][:department_id]
+				@staff.update_attributes(department_id: params[:staff_transfer][:department_id].to_i)
 			end
-		elsif params[:is_warehouse] == 'on'
+		end
+		
+		if params[:is_warehouse] == 'on'
 			if @staff.warehouse_id.present? && @staff.warehouse_id == params[:staff_transfer][:warehouse_id].to_i
 				redirect_to :back, notice: '仓库调动前后必须不一致!'
 				return
@@ -38,10 +41,12 @@ class Admin::StaffTransfersController < Admin::BaseController
 				@staff_transfer.is_warehouse = 1
 				@staff_transfer.before_warehouse_id = @staff.warehouse_id
 				@staff_transfer.warehouse_id = params[:staff_transfer][:warehouse_id]
+				@staff.update_attributes(warehouse_id: params[:staff_transfer][:warehouse_id].to_i)
 			end
 		end
-
+		@staff_transfer.role_id = params[:staff_transfer][:role_id].to_i
 		if @staff_transfer.save!
+			@staff.update_attributes(role_id: params[:staff_transfer][:role_id].to_i)
 			SystemRecord.system_record('staff_transfer', @staff_transfer.id, '仓库(部门)调动', current_staff.id, '管理员')
 			redirect_to admin_staff_transfers_url, notice: '操作成功'
 		else

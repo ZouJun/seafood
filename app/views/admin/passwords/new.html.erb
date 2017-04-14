@@ -9,28 +9,17 @@
   }
 
 </style>
-
     <ol class="breadcrumb">
-      <li><a href="#">员工管理</a></li>
-      <li><a href="#">员工列表</a></li>
-      <li class="active">新增</li>
+      <li><a href="#">个人信息</a></li>
+      <li class="active">编辑</li>
     </ol>
 
     <div class="add_agent">
     <div class="form-inline" role="form">
-    <%= form_for @staff, url: admin_staffs_path, validate: true do |f| %>
+    <%= form_for current_staff, url: admin_passwords_path, method: :post, validate: true do |f| %>
         <div class="form-group">
-          <p><label>员工姓名(必填):</label>
+          <p><label>员工姓名:</label>
           <%= f.text_field :name, class: "form-control", placeholder: "员工姓名" %></p>
-        </div>
-        <div class="form-group admin_staff_top">
-          <label>员工编号(必填):&nbsp;&nbsp</label><%= f.text_field :no, class: "form-control", placeholder: "员工编号" %>
-        </div>
-        <div class="form-group admin_staff_top">
-          <label>登陆密码(必填):&nbsp;&nbsp</label><%= f.password_field :password, class: "form-control", placeholder: "登陆密码" %>
-        </div>
-        <div class="form-group admin_staff_top">
-          <label>角&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp色:&nbsp;&nbsp;&nbsp</label><%= f.select :role_id, Role.all.map{|m| [m.name, m.id]}, {},class: "select_css", id: "exampleInputEmail1" %>
         </div>
         <div class="form-group admin_staff_top">
           <label>联系方式(必填):&nbsp;&nbsp</label><%= f.text_field :mobile, class: "form-control", placeholder: "联系方式" %>
@@ -51,12 +40,6 @@
           <label>出&nbsp生&nbsp日:&nbsp;&nbsp;&nbsp</label><%= f.select :days, Staff.days, {}, class: "select_css"%>
         </div>
         <div class="form-group admin_staff_top">
-          <label>所属部门(必填):&nbsp;&nbsp</label><%= f.select :department_id, Department.normal.map{|m| [m.name, m.id]}, {include_blank: '请选择部门'},class: "select_css", id: "staff-departmnt" %>
-        </div>
-        <div class="form-group admin_staff_top hide" id="staff-warehouse">
-          <label>所属仓库:&nbsp;&nbsp</label><%= f.select :warehouse_id, Warehouse.normal.map{|n| [n.name, n.id]}, {include_blank: '请选择仓库'},class: "select_css", id: "select-warehouse" %>
-        </div>
-        <div class="form-group admin_staff_top">
           <label>q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbspq:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</label><%= f.text_field :qq, class: "form-control", id: "exampleInputEmail1", placeholder: "qq" %>
         </div>
         <div class="form-group admin_staff_top">
@@ -75,7 +58,7 @@
           <label>所&nbsp在&nbsp区:&nbsp;&nbsp;&nbsp</label><%= f.select :district_id, District.all.map{|n| [n.name, n.id]}, {},class: "select_css"%>
         </div>
         <div class="form-group admin_staff_top">
-          <label>详细地址(必填):&nbsp;&nbsp</label><%= f.text_field :address, class: "form-control", placeholder: "详细地址" %>
+          <label>详细地址:&nbsp;&nbsp</label><%= f.text_field :address, class: "form-control", placeholder: "详细地址" %>
         </div>
         <div class="form-group admin_staff_top staff-submit">
           <button type="submit" class="btn btn-primary">提交</button>
@@ -137,34 +120,6 @@
     });
   });
 
-
-  $(document).ready(function(){
-
-    $('#staff-departmnt').click(function(){
-      var department_val = $(this).text();
-      if (department_val == ''){
-        alert('请先去添加部门!')
-      }
-    });
-
-    $('#select-warehouse').click(function(){
-      var warehouse_val = $(this).text();
-      if (warehouse_val == ''){
-        alert('请先去添加仓库!')
-      }
-    });
-
-    $('#staff-departmnt').change(function(){
-       var department_val = $(this).find("option:selected").text();
-       if (department_val == '仓储部'){
-        $('#staff-warehouse').removeClass("hide");
-       }
-       else {
-        $('#staff-warehouse').addClass("hide");
-       }
-    })
-
-  })
 
 </script>
 

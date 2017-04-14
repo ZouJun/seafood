@@ -55,7 +55,7 @@
             <td><%= staff_transfer.staff.mobile %></td>
             <td><%= staff_transfer.is_department_name %></td>
             <td><%= Department.find(staff_transfer.before_department_id).name if staff_transfer.is_department &&  staff_transfer.before_department_id %></td>
-            <td><%= Department.find(staff_transfer.department_id) if staff_transfer.is_department && staff_transfer.department_id%></td>
+            <td><%= Department.find(staff_transfer.department_id).name if staff_transfer.is_department && staff_transfer.department_id%></td>
             <td><%= staff_transfer.is_warehouse_name %></td>
             <td><%= Warehouse.find(staff_transfer.before_warehouse_id).name if staff_transfer.is_warehouse && staff_transfer.before_warehouse_id %></td>
             <td><%= Warehouse.find(staff_transfer.warehouse_id) if staff_transfer.is_warehouse && staff_transfer.warehouse_id %></td>

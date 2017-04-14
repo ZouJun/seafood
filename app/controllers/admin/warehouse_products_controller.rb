@@ -1,8 +1,13 @@
 class Admin::WarehouseProductsController < Admin::BaseController
 
 	def index
-		@search = WarehouseProduct.search(params[:search])
-    	@warehouse_products = @search.page(params[:page])
+		if current_warehouse
+			@search = WarehouseProduct.where(:id => current_warehouse.warehouse_products).search(params[:search])
+			@warehouse_products = @search.page(params[:page])
+		else
+			@search = WarehouseProduct.search(params[:search])
+	    	@warehouse_products = @search.page(params[:page])
+	    end
 	end
 
 	def new

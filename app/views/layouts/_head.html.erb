@@ -33,8 +33,8 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_staff.name%> <span class="caret"></span></a>
           <div id="tip"></div>
           <ul class="dropdown-menu" role="menu">
+            <li><a href="<%= new_admin_password_path %>">修改信息</a></li>
             <li><a href="<%= edit_admin_password_path(current_staff)%>">修改密码</a></li>
-            <!--<li><a href="#">消息通知</a></li>-->
             <li class="divider"></li>
             <li><%= link_to '退出', sign_up_path, data: {confirm: '确定退出？'}%></li>
           </ul>

@@ -1,17 +1,22 @@
 <% content_for :content_for do %>
     <ol class="breadcrumb">
       <li><a href="#">仓库管理</a></li>
-      <li><a href="#">出入库录入</a></li>
+      <li><a href="<%= admin_warehouse_records_path %>">出入库录入</a></li>
       <li class="active">新增</li>
     </ol>
 
     <div class="add_agent">
     <div class="form-inline" role="form">
     <%= form_for @warehouse_record, url: admin_warehouse_records_path do |f| %>
-        <div class="form-group">
-        <label>仓库名称:&nbsp</label>
-          <%= f.select :warehouse_id, Warehouse.all.map{|m| [m.name, m.id]}, {}, class: "select_css" %>
-        </div>
+
+        <%if current_warehouse.blank? %>
+          <div class="form-group">
+          <label>仓库名称:&nbsp</label>
+            <%= f.select :warehouse_id, Warehouse.all.map{|m| [m.name, m.id]}, {}, class: "select_css" %>
+          </div>
+        <% else %>
+          <%= hidden_field_tag 'warehouse_record[warehouse_id]', current_warehouse.id %>
+        <% end %>
         <div class="form-group admin_staff_top">
         <label>商品名称:&nbsp</label>
           <%= f.select :product_id, Product.all.map{|m| [m.name, m.id]}, {}, class: "select_css" %>

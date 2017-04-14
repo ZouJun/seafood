@@ -27,7 +27,7 @@
 
         <div class="form-group hide" id="after_department">
             <label for="exampleInputEmail2">
-            调动后部门:&nbsp;&nbsp<%= f.select :department_id, Department.all.map{|m| [m.name, m.id]}, {} %></label>
+            调动后部门:&nbsp;&nbsp<%= f.select :department_id, Department.all.map{|m| [m.name, m.id]}, {include_blank: '请选择调动后的部门'} %></label>
         </div>
 
         <div class="form-group">
@@ -43,9 +43,12 @@
 
         <div class="form-group hide" id="after_warehouse">
             <label for="exampleInputEmail2">
-            调动前仓库:&nbsp;&nbsp<%= f.select :warehouse_id, Warehouse.all.map{|n| [n.name, n.id]}, {}%></label>
+            调动后仓库:&nbsp;&nbsp<%= f.select :warehouse_id, Warehouse.all.map{|n| [n.name, n.id]}, {include_blank: '请选择调动后的仓库'}%></label>
         </div>
            
+        <div class="form-group">
+          <label for="exampleInputEmail2">员工角色(必填):&nbsp;&nbsp<%= f.select :role_id, Role.all.map{|n| [n.name, n.id]}, {include_blank: '请选择相应角色'}%></label>
+        </div>
 
         <button type="submit" class="btn btn-primary">提交</button>
     <% end %>

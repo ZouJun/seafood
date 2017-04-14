@@ -12,6 +12,9 @@ class SessionsController < ApplicationController
         if staff.role.role_permission_maps.blank?
           return redirect_to :back, notice: '您还没有进入系统的权限!'
         else
+          if staff.warehouse_id
+            session[:warehouse_id] = staff.warehouse_id
+          end
           session[:staff_id] = staff.id
           redirect_to admin_home_url, notice: '登陆成功!'
         end
@@ -26,6 +29,9 @@ class SessionsController < ApplicationController
   def destroy
     if session[:staff_id]
       session[:staff_id] = nil
+    end
+    if session[:warehouse_id]
+      session[:warehouse_id] = nil
     end
     redirect_to sign_in_url
   end

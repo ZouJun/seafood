@@ -1,6 +1,14 @@
 class Admin::PasswordsController < Admin::BaseController
   skip_before_filter :page_can?
 
+  def create
+    if current_staff.update_attributes(params[:staff])
+      redirect_to admin_home_url, notice: '修改成功'
+    else
+      redirect_to :back, alert: '修改失败'
+    end
+  end
+
   def edit
     @staff = Staff.find(params[:id])
   end

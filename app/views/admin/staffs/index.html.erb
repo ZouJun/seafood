@@ -65,9 +65,12 @@
         <td>操作</td>
       </tr>
 
-      <% @staffs.each do |staff| %>
+      <% @staffs.each_with_index do |staff, index| %>
+        <%if staff.no == 'admin' %>
+        <% next %>
+        <% else %>
           <tr>
-            <td><%= staff.id %></td>
+            <td><%= index %></td>
             <td><%= staff.name %></td>
             <td><%= staff.no %></td>
             <td><%= staff.department.try(:name) %></td>
@@ -87,6 +90,7 @@
               <%#= link_to '角色编辑', edit_role_admin_roles_path(staff_id: staff.id), data: {confirm: '确认对该账号进行角色编辑操作?'} if staff.normal?%>
             </td>
           </tr>
+        <% end %>
       <% end %>
     </table>
     <%= paginate @staffs %>

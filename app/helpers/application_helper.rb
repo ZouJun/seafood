@@ -63,6 +63,8 @@ module ApplicationHelper
       '商品'
     when 'Warehouse'
       '仓库'
+    when 'WarehouseRecord'
+      '商品出入库'  
     else
       return '未知类型'
     end
