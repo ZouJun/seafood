@@ -15,6 +15,12 @@ class Admin::StaffTransfersController < Admin::BaseController
 		@staff_transfer = StaffTransfer.new
 		@staff_transfer.staff_id = @staff.id
 		@staff_transfer.operator_id = current_staff.id
+		# binding.pry
+		if params[:staff_transfer][:role_id].blank?
+			@staff_transfer.role_id = @staff.role_id
+		else
+			@staff_transfer.role_id = params[:staff_transfer][:role_id].to_i
+		end
 		if session[:admin_id]
 			@staff_transfer.operator_type = 'admin'
 		else
@@ -44,9 +50,11 @@ class Admin::StaffTransfersController < Admin::BaseController
 				@staff.update_attributes(warehouse_id: params[:staff_transfer][:warehouse_id].to_i)
 			end
 		end
-		@staff_transfer.role_id = params[:staff_transfer][:role_id].to_i
+
 		if @staff_transfer.save!
-			@staff.update_attributes(role_id: params[:staff_transfer][:role_id].to_i)
+			if params[:staff_transfer][:role_id].present?
+				@staff.update_attributes(role_id: params[:staff_transfer][:role_id].to_i)
+			end
 			SystemRecord.system_record('staff_transfer', @staff_transfer.id, '仓库(部门)调动', current_staff.id, '管理员')
 			redirect_to admin_staff_transfers_url, notice: '操作成功'
 		else

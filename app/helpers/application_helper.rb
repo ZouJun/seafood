@@ -25,7 +25,7 @@ module ApplicationHelper
   def get_permissioin_no(controller)
     case controller
     when 'admin/staffs' then 1
-    when 'admin/transfers' then 2
+    when 'admin/staff_transfers' then 2
     when 'admin/roles' then 3
     when 'admin/departments' then 4
     when 'admin/warehouses' then 5

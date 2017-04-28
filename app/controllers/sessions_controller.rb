@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
         if staff.role.role_permission_maps.blank?
           return redirect_to :back, notice: '您还没有进入系统的权限!'
         else
-          if staff.warehouse_id
+          if staff.warehouse_id && staff.warehouse_id != 0
             session[:warehouse_id] = staff.warehouse_id
           end
           session[:staff_id] = staff.id

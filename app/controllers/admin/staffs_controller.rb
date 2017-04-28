@@ -19,6 +19,9 @@ class Admin::StaffsController < Admin::BaseController
   def create
     @staff = Staff.new(params[:staff])
     if @staff.save!
+      if params[:staff][:warehouse_id].blank? && @staff.department_id == 4
+        @staff.update_attributes(warehouse_id: 0)
+      end
       SystemRecord.system_record('staff', @staff.id, '新增', current_staff.id, current_staff.role.name)
       redirect_to admin_staffs_path, notice: '添加成功'
     else

@@ -1,6 +1,6 @@
 class StaffTransfer < ActiveRecord::Base
 
-  	validates :role_id, presence: true
+  	# validates :role_id, presence: true
 	belongs_to :staff
 	belongs_to :role
 

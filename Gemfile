@@ -8,8 +8,8 @@ gem 'bootstrap-sass', '~> 3.2.0.2'
 gem 'kaminari'
 gem 'acts_as_enum', '~> 1.2.1'
 
-gem 'rmagick', '2.13.2', require: 'RMagick'
-gem 'mini_magick'
+#gem 'rmagick', '2.13.2', require: 'RMagick'
+#gem 'mini_magick'
 
 # gem 'rucaptcha'
 gem 'carrierwave'
@@ -31,8 +31,8 @@ gem 'redis', '~>3.2'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
+ #gem 'coffee-rails', '~> 3.2.1'
+ #gem 'uglifier', '>= 1.0.3'
 end
 
 group :development do

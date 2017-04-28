@@ -70,12 +70,20 @@
         <% next %>
         <% else %>
           <tr>
-            <td><%= index %></td>
+            <td><%= index%></td>
             <td><%= staff.name %></td>
             <td><%= staff.no %></td>
             <td><%= staff.department.try(:name) %></td>
-            <td><%= staff.warehouse.name if staff.warehouse %></td>
-            <td><%= staff.role.name %></td>
+            <% if staff.warehouse_id.present? %>
+            <% if staff.warehouse_id == 0%>
+              <td>All</td>
+            <% else %>
+              <td><%= staff.warehouse.name if staff.warehouse %></td>
+              <% end %>
+            <% else %>
+              <td>No Allocat</td>
+            <% end %>
+            <td><%= staff.role.try(:name) %></td>
             <td><%= staff.gender_name %></td>
             <td><%= staff.email %></td>
             <td><%= staff.mobile %></td>
