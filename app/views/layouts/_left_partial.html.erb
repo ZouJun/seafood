@@ -56,10 +56,10 @@
                <li role="presentation" class="<%= parent_class if current_page?(admin_products_path) %>">
                <a href="<%= admin_products_path %>" style="padding-left: 30px;">商品录入</a></li>
              <% end %>
-             <% if can?(10)%>
-               <li role="presentation" class="<%= parent_class if current_page?(pic_admin_products_path) %>">
-               <a href="<%= pic_admin_products_path %>" style="padding-left: 30px;">商品分析</a></li>
-             <% end %>
+<!--              <%# if can?(10)%>
+               <li role="presentation" class="<%#= parent_class if current_page?(pic_admin_products_path) %>">
+               <a href="<%#= pic_admin_products_path %>" style="padding-left: 30px;">商品分析</a></li>
+             <%# end %> -->
            </ul>
         <% end %>
 

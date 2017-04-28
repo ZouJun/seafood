@@ -32,9 +32,9 @@
         <td>操作</td>
       </tr>
 
-      <% @departments.each do |department| %>
+      <% @departments.each_with_index do |department, index| %>
           <tr>
-            <td><%= department.id %></td>
+            <td><%= index + 1 %></td>
             <td><%= department.name %></td>
             <td><%= department.sort %></td>
             <td><%= department.description %></td>

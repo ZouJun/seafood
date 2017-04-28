@@ -11,14 +11,13 @@ namespace :dev do
   		7 => '出(入)库记录',
   		8 => '仓库数据分析',
   		9 => '商品录入',
-  		10 => '商品数据分析',
-  		11 => '系统日志'
+  		10 => '系统日志'
   	}
 
-  	Role.create!(name: '管理员', description: '最高权限拥有者')
+  	# Role.create!(name: '管理员', description: '最高权限拥有者')
   	permission_list.each do |key, value|
-  		permission = Permission.create!(name: value)
-  		RolePermissionMap.create!(role_id: 1, permission_id: permission.id)
+  		permission = Permission.where(name: value).first_or_create
+  		RolePermissionMap.where(role_id: 1, permission_id: permission.id).first_or_create
   	end
 
 
