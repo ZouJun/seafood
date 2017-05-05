@@ -3,7 +3,7 @@
       <li class="active">主页</li>
     </ol>
 
-    <p>亲爱的：<%= current_staff.name%>，欢迎登陆青岛比索海鲜仓储后台系统!</p>
+    <p>亲爱的：<%= current_staff.name%>，欢迎登陆青岛比索海鲜仓储后台管理系统!</p>
     <p>当前时间：<%= Time.now.strftime("%Y-%m-%d %H:%M:%S")%>&nbsp;&nbsp;&nbsp星期<%= change_time %></p>
     <% if current_staff.role.role_permission_maps.blank? %>
     	<p style="color:red">您暂无权限操作后台系统相关功能哦!</p>

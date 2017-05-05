@@ -29,7 +29,7 @@
           <label>登陆密码(非必填):&nbsp;&nbsp</label><%= f.password_field :password, class: "form-control", placeholder: "登陆密码" %>
         </div>
         <div class="form-group admin_staff_top">
-          <label>角&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp色:&nbsp;&nbsp;&nbsp</label><%= f.select :role_id, Role.all.map{|m| [m.name, m.id]}, {},class: "select_css", id: "exampleInputEmail1" %>
+          <label>角&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp色:&nbsp;&nbsp;&nbsp</label><%= f.select :role_id, Role.normal.map{|m| [m.name, m.id]}, {},class: "select_css", id: "exampleInputEmail1" %>
         </div>
         <div class="form-group admin_staff_top">
           <label>联系方式(必填):&nbsp;&nbsp</label><%= f.text_field :mobile, class: "form-control", placeholder: "联系方式" %>

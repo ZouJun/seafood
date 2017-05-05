@@ -83,4 +83,8 @@ module ApplicationHelper
       '六'
     end
   end
+
+  def random_back
+    rand(2) == 0? 'session_body1' : 'session_body2'
+  end
 end

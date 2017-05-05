@@ -43,9 +43,29 @@
     padding-right: 70%;
 }
 
-.session_body {
+/*.session_body1 {
     height: auto;
     background: url(/login.png);
+}*/
+.session_body1 {
+/*    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;*/
+    /*background: url(/warehouse1.jpeg);*/
+    /*background-image: url(/warehouse1.jpeg);*/
+    margin:0;
+    background:url(/warehouse1.jpeg) no-repeat;
+    background-size:cover;
+}
+.session_body2 {
+/*    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;*/
+    /*background: url(/warehouse2.jpeg);*/
+    margin:0;
+    background:url(/warehouse2.jpeg) no-repeat;
+    background-size:cover;
+    /*background-image: url(/warehouse2.jpeg);*/
 }
 
 .session {
