@@ -54,7 +54,7 @@
     /*background: url(/warehouse1.jpeg);*/
     /*background-image: url(/warehouse1.jpeg);*/
     margin:0;
-    background:url(/warehouse1.jpg) no-repeat;
+    background:url(/warehouse1.tif) no-repeat;
     background-size:cover;
 }
 .session_body2 {
@@ -63,7 +63,7 @@
     background-repeat: no-repeat;*/
     /*background: url(/warehouse2.jpeg);*/
     margin:0;
-    background:url(/warehouse2.jpg) no-repeat;
+    background:url(/warehouse2.tif) no-repeat;
     background-size:cover;
     /*background-image: url(/warehouse2.jpeg);*/
 }
