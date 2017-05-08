@@ -48,7 +48,7 @@
           </ul>
         <% end %>
 
-        <% if can?(9) || can?(10)%>
+        <% if can?(9)%>
           <li role="presentation" class="<%= parent_class if current_page?(admin_products_path) %>">
             <a href="#product" class="nav-header" data-toggle="collapse"><i class="glyphicon glyphicon-briefcase"></i>&nbsp商品管理</a></li>
            <ul id="product" class="nav nav-list collapse">
@@ -63,7 +63,7 @@
            </ul>
         <% end %>
 
-        <% if can?(11)%>
+        <% if can?(10)%>
           <li role="presentation" class="<%= parent_class if current_page?(admin_system_records_path) %>">
             <a href="<%= admin_system_records_path %>"><i class="glyphicon glyphicon-cog"></i>&nbsp系统日志</a></li>
         <% end %>
