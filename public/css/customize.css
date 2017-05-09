@@ -97,3 +97,16 @@
 .hide {
     display: none !important;
 }
+.warehouse_record_span {
+    font-size: 18px;
+}
+.warehouse_record_dis {
+    margin-bottom: 10px;
+    margin-left: 25px;
+}
+.warehouse_record_label {
+    margin-left: 15px;
+}
+.active {
+    color: red;
+}

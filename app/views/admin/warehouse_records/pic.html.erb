@@ -1,74 +1,189 @@
 <% content_for :content_for do %>
+<% parent_class = 'active'%>
     <script src="/js/echarts.min.js"></script>
     <ol class="breadcrumb">
       <li><a href="#">仓库管理</a></li>
-      <li><a class="active">仓库数据分析</a></li>
+      <li><a>仓库数据分析</a></li>
     </ol>
+    <%= form_tag pic_admin_warehouse_records_path, method: :get, id: 'pic-form' do %>
+        <%= hidden_field_tag 'type'%>
+    <% end %>
+    <div class="warehouse_record_dis">
+        <span class="warehouse_record_span">日期选择：</span><label class="warehouse_record_label <%= parent_class if @type == 7 || @type == 0%>" id="7">最近7天</label><label class="warehouse_record_label <%= parent_class if @type == 1%>" id="1">最近1个月</label><label class="warehouse_record_label <%= parent_class if @type == 2%>" id="2">最近2个月</label>
+    </div>
 
     <div class="add_agent">
-        <div id="chart1" style="width: 600px;height:400px;"></div>
-        <div id="chart2" style="width: 600px;height:400px;"></div>
-
-            <script type="text/javascript">
-                // 基于准备好的dom，初始化echarts实例
-                var chart1 = echarts.init(document.getElementById('chart1'));
-
-                // 指定图表的配置项和数据
-                var option = {
-                    title: {
-                        text: '仓库商品数据趋势图'
-                    },
-                    tooltip: {},
-                    legend: {
-                        data:['出库入记录分析','aaa']
-                    },
-                    xAxis: {
-                        data: ["甲鱼","海水鱼","刀鱼","黄鱼","带鱼","沙丁鱼",
-                        "鱿鱼","墨鱼","鲫鱼"]
-                    },
-                    yAxis: {},
-                    series: [{
-                        name: '出库',
-                        type: 'line',
-                        data: [5, 20, 36, 10, 10, 20,100,25,300]
-                    },
-                    {
-                        name: '入库',
-                        type: 'line',
-                        data: [35, 2, 6, 1, 103, 20,30,5,100]
-                    }]
-                };
-                 chart1.setOption(option);
-
-
-                 // 基于准备好的dom，初始化echarts实例
-                var chart2 = echarts.init(document.getElementById('chart2'));
-
-                // 指定图表的配置项和数据
-                var option = {
-                    title: {
-                        text: '仓库出入库数据趋势图'
-                    },
-                    tooltip: {},
-                    legend: {
-                        data:['出库入记录分析','aaa']
-                    },
-                    xAxis: {
-                        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-                    },
-                    yAxis: {},
-                    series: [{
-                        name: '出库',
-                        type: 'line',
-                        data: [5, 20, 36, 10, 10, 20]
-                    },
-                    {
-                        name: '入库',
-                        type: 'line',
-                        data: [15, 2, 6, 1, 103, 20]
-                    }]
-                };
-                 chart2.setOption(option);
-            </script>
+        <div id="chart_1" style="width: 1000px;height:400px;"></div>
+        <div id="chart_2" style="width: 1000px;height:400px;"></div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.warehouse_record_label').click(function(){
+                var value = $(this).attr('id');
+                if (value == 7){
+                    $('#type').val(value);
+                }
+                else if (value == 1)
+                {
+                    $('#type').val(value);
+                }
+                else
+                {
+                    $('#type').val(value);
+                }
+                $('#pic-form').submit();
+            })
+        })
+
+        // 基于准备好的dom，初始化echarts实例
+        var chart_1 = echarts.init(document.getElementById('chart_1'));
+        var colors = "#e62872";
+        var bgcolor = "rgba(230,40,114,.1)";
+        chart_1.showLoading({
+            text: '正在努力的读取数据中...',
+        });
+        chart_1.hideLoading();
+        var option = {
+            title : {
+                text: '仓库<%= @head %>出库趋势图',
+                textStyle:{
+                  fontSize:16,
+                  fontWeight: "normal"
+                },
+                x: 20
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer:{
+                  type: 'line',
+                lineStyle: {
+                    color: '#ff0000',
+                    width: 0,
+                    type: 'solid'
+                }
+                }
+            },
+            toolbox: {
+                show : false
+            },
+            grid:{
+              borderColor:'#eee'
+            },
+            calculable : true,
+
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : <%=sanitize @out_data.keys.map(&:to_s).to_json %>,
+                    splitLine:{lineStyle:{color: ['#eee']}},
+                    axisTick:{lineStyle:{color: '#eee'}},
+                    axisLine:{lineStyle:{color: '#ddd',width:0}}
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    axisLabel : {
+                        formatter: '{value}'
+                    },
+                    splitLine:{lineStyle:{color: ['#eee']}},
+                    axisTick:{lineStyle:{color: '#eee'}},
+                    axisLine:{lineStyle:{color: '#ddd',width:0}}
+                }
+            ],
+            series : [
+                {
+                    name: '出库记录',
+                    type:'line',
+                    smooth:true,
+                    itemStyle: {
+                      normal: {
+                        areaStyle: {type: 'default',color:bgcolor},
+                        lineStyle:{ color:colors},
+                        borderColor: colors
+                      }
+                    },
+                    data: <%=sanitize @out_data.values.to_json %>
+                }
+            ]
+        };
+        chart_1.setOption(option);
+
+
+        var chart_2 = echarts.init(document.getElementById('chart_2'));
+        var colors = "#e62872";
+        var bgcolor = "rgba(230,40,114,.1)";
+        chart_2.showLoading({
+            text: '正在努力的读取数据中...',
+        });
+        chart_2.hideLoading();
+        var option = {
+            title : {
+                text: '仓库<%= @head %>入库趋势图',
+                textStyle:{
+                  fontSize:16,
+                  fontWeight: "normal"
+                },
+                x: 20
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer:{
+                  type: 'line',
+                lineStyle: {
+                    color: '#ff0000',
+                    width: 0,
+                    type: 'solid'
+                }
+                }
+            },
+            toolbox: {
+                show : false
+            },
+            grid:{
+              borderColor:'#eee'
+            },
+            calculable : true,
+
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : <%=sanitize @in_data.keys.map(&:to_s).to_json %>,
+                    splitLine:{lineStyle:{color: ['#eee']}},
+                    axisTick:{lineStyle:{color: '#eee'}},
+                    axisLine:{lineStyle:{color: '#ddd',width:0}}
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    axisLabel : {
+                        formatter: '{value}'
+                    },
+                    splitLine:{lineStyle:{color: ['#eee']}},
+                    axisTick:{lineStyle:{color: '#eee'}},
+                    axisLine:{lineStyle:{color: '#ddd',width:0}}
+                }
+            ],
+            series : [
+                {
+                    name: '入库记录',
+                    type:'line',
+                    smooth:true,
+                    itemStyle: {
+                      normal: {
+                        areaStyle: {type: 'default',color:bgcolor},
+                        lineStyle:{ color:colors},
+                        borderColor: colors
+                      }
+                    },
+                    data: <%=sanitize @in_data.values.to_json %>
+                }
+            ]
+        };
+        chart_2.setOption(option);
+    </script>
 <% end %>

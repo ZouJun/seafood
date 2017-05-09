@@ -53,4 +53,43 @@ class Admin::WarehouseRecordsController < Admin::BaseController
 	    end
   	end
 
+  	def pic
+  		if params[:type].to_i == 1
+	  		start_date, end_date = 30.days.ago.to_date, 1.days.ago.to_date
+	  		@head = '最近1个月'
+  		elsif params[:type].to_i == 2
+	  		start_date, end_date = 60.days.ago.to_date, 1.days.ago.to_date
+	  		@head = '最近2个月'
+		else
+	  		start_date, end_date = 7.days.ago.to_date, 1.days.ago.to_date
+	  		@head = '最近7天'
+		end	
+		@type = params[:type].to_i
+  		if current_warehouse
+  			@out_data = (start_date..end_date).inject({}) do |h, date|
+  				h.merge!(
+			  		date => current_warehouse.warehouse_records.out.where("created_at between ? and ?", date.midnight, date.next.midnight).sum(:qty)
+  					)
+  			end
+
+  			@in_data = (start_date..end_date).inject({}) do |h, date|
+  				h.merge!(
+			  		date => current_warehouse.warehouse_records.in.where("created_at between ? and ?", date.midnight, date.next.midnight).sum(:qty)
+  					)
+  			end
+	  	else
+	  		@out_data = (start_date..end_date).inject({}) do |h, date|
+  				h.merge!(
+			  		date => WarehouseRecord.out.where("created_at between ? and ?", date.midnight, date.next.midnight).sum(:qty)
+  					)
+  			end
+
+	  		@in_data = (start_date..end_date).inject({}) do |h, date|
+  				h.merge!(
+			  		date => WarehouseRecord.in.where("created_at between ? and ?", date.midnight, date.next.midnight).sum(:qty)
+  					)
+  			end
+	  	end
+  	end
+
 end
