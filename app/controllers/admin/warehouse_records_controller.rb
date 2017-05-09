@@ -66,6 +66,7 @@ class Admin::WarehouseRecordsController < Admin::BaseController
 		end	
 		@type = params[:type].to_i
   		if current_warehouse
+  			@warehouse = current_warehouse.name
   			@out_data = (start_date..end_date).inject({}) do |h, date|
   				h.merge!(
 			  		date => current_warehouse.warehouse_records.out.where("created_at between ? and ?", date.midnight, date.next.midnight).sum(:qty)
@@ -77,7 +78,12 @@ class Admin::WarehouseRecordsController < Admin::BaseController
 			  		date => current_warehouse.warehouse_records.in.where("created_at between ? and ?", date.midnight, date.next.midnight).sum(:qty)
   					)
   			end
+  			@remain_data = {}
+  			current_warehouse.warehouse_products.each do |t|
+  				@remain_data.store(t.product.name, t.qty)
+  			end
 	  	else
+	  		@warehouse = ''
 	  		@out_data = (start_date..end_date).inject({}) do |h, date|
   				h.merge!(
 			  		date => WarehouseRecord.out.where("created_at between ? and ?", date.midnight, date.next.midnight).sum(:qty)
@@ -88,6 +94,10 @@ class Admin::WarehouseRecordsController < Admin::BaseController
   				h.merge!(
 			  		date => WarehouseRecord.in.where("created_at between ? and ?", date.midnight, date.next.midnight).sum(:qty)
   					)
+  			end
+  			@remain_data = {}
+  			WarehouseProduct.all.each do |t|
+  				@remain_data.store(t.product.name, t.qty)
   			end
 	  	end
   	end
