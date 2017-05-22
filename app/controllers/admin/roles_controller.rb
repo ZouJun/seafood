@@ -1,5 +1,6 @@
 class Admin::RolesController < Admin::BaseController
 
+  ##角色列表
 	def index
 		@search = Role.search(params[:search])
     @roles = @search.page(params[:page])
@@ -9,6 +10,7 @@ class Admin::RolesController < Admin::BaseController
    	 @role = Role.new
   end
 
+  ##新建角色
 	def create
    	@role = Role.new(params[:role])
     if @role.save
@@ -31,6 +33,7 @@ class Admin::RolesController < Admin::BaseController
 		@role = Role.find(params[:id])
 	end
 
+  ##更新角色
 	def update
 		@role = Role.find(params[:id])
 		if @role.update_attributes(params[:role])
@@ -83,7 +86,7 @@ class Admin::RolesController < Admin::BaseController
   end
 
 
-
+  ##解冻角色
 	def normal
     @role = Role.find(params[:id])
     if @role.normal!
@@ -91,6 +94,7 @@ class Admin::RolesController < Admin::BaseController
     end
 	end
 
+  ##冻结角色
 	def disabled
     @role = Role.find(params[:id])
     if @role.disabled!

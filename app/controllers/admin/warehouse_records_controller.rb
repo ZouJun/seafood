@@ -1,5 +1,6 @@
 class Admin::WarehouseRecordsController < Admin::BaseController
 
+	##仓库出入库记录列表
 	def index
 		if current_warehouse
 			@search = WarehouseRecord.where(:id => current_warehouse.warehouse_records).search(params[:search])
@@ -32,6 +33,7 @@ class Admin::WarehouseRecordsController < Admin::BaseController
 	    end
   	end
 
+  	##新建仓库出入库
   	def create
   		# binding.pry
 		warehouse_product = WarehouseProduct.where(product_id: params[:warehouse_record][:product_id], warehouse_id: params[:warehouse_record][:warehouse_id]).first_or_create
@@ -53,6 +55,7 @@ class Admin::WarehouseRecordsController < Admin::BaseController
 	    end
   	end
 
+  	##整合分析所需数据
   	def pic
   		if params[:type].to_i == 1
 	  		start_date, end_date = 30.days.ago.to_date, 1.days.ago.to_date

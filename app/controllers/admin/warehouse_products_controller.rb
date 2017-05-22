@@ -1,5 +1,6 @@
 class Admin::WarehouseProductsController < Admin::BaseController
 
+	##仓库产品列表
 	def index
 		if current_warehouse
 			@search = WarehouseProduct.where(:id => current_warehouse.warehouse_products).search(params[:search])
@@ -18,6 +19,7 @@ class Admin::WarehouseProductsController < Admin::BaseController
 	   	end
   	end
 
+  	##新建仓库产品
   	def create
 	   	@warehouse_product = WarehouseProduct.new(params[:warehouse_product])
 	    if @warehouse_product.save

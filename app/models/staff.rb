@@ -5,6 +5,8 @@ class Staff < ActiveRecord::Base
   validates :name, :address, :mobile, :role_id, presence: true
   validates :no, presence: true
   validates :mobile, :no, uniqueness: true
+  validates :password, length: { in: 6..18 }
+  # validates :password, format:{with: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$/}
   validates :password, presence: true, on: :create
 
   belongs_to :department
@@ -28,6 +30,14 @@ class Staff < ActiveRecord::Base
       ['normal', 1, '正常'],
       ['disabled', -1, '冻结']
   ]
+
+  def update_login_info(ip)
+    self.update_attributes(current_sign_in_at: Time.now, current_sign_in_ip: ip, sign_in_count: self.sign_in_count + 1)
+  end
+
+  def update_login_out
+    self.update_attributes(current_sign_out_at: Time.now, last_sign_in_at: self.current_sign_in_at, last_sign_in_ip: self.current_sign_in_ip)
+  end
 
   class << self
 

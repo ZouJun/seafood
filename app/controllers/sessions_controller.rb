@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
   def new
   end
 
+  ##用户登陆操作方法
   def create
     staff = Staff.authenticated(params[:login], params[:password])
     if staff
@@ -16,6 +17,7 @@ class SessionsController < ApplicationController
             session[:warehouse_id] = staff.warehouse_id
           end
           session[:staff_id] = staff.id
+          staff.update_login_info(request.remote_ip)
           redirect_to admin_home_url, notice: '登陆成功!'
         end
       else
@@ -26,6 +28,7 @@ class SessionsController < ApplicationController
     end
   end
 
+  ##用户退出登陆操作方法
   def destroy
     if session[:staff_id]
       session[:staff_id] = nil
@@ -33,6 +36,7 @@ class SessionsController < ApplicationController
     if session[:warehouse_id]
       session[:warehouse_id] = nil
     end
+    current_staff.update_login_out
     redirect_to sign_in_url
   end
 end
