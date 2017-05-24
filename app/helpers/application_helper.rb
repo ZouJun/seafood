@@ -33,7 +33,7 @@ module ApplicationHelper
     when 'admin/warehouse_records' then 7
     when 'admin/warehouse_records' then 8
     when 'admin/products' then 9
-    when 'admin/products' then 10
+    when 'admin/system_records' then 10
     else
       11
     end
