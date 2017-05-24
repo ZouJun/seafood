@@ -13,6 +13,7 @@ class Admin::PasswordsController < Admin::BaseController
     @staff = Staff.find(params[:id])
   end
 
+  ##更新密码
   def update
     @staff = Staff.find(params[:id])
     if params[:staff][:current_password]

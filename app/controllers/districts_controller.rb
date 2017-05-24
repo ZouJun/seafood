@@ -1,5 +1,6 @@
 class DistrictsController < ApplicationController 
 
+	##市区联动查询
 	def index
 		if params[:city_id].present?
 			@districts = District.where(city_id: params[:city_id])

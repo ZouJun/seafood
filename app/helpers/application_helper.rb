@@ -1,5 +1,6 @@
 module ApplicationHelper
 
+  ##左侧菜单栏是否展开判断
   def can?(ids)
       permission_ids = []
       current_staff.role.role_permission_maps.each do |t|
@@ -13,6 +14,7 @@ module ApplicationHelper
       end
   end
 
+  ##页面权限判断
   def page_can?
     permission_id = get_permissioin_no(params[:controller])
     if can?(permission_id)

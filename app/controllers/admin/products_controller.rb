@@ -1,5 +1,6 @@
 class Admin::ProductsController < Admin::BaseController
 
+	##产品列表
 	def index
 		@search = Product.search(params[:search])
     	@products = @search.page(params[:page])
@@ -14,6 +15,7 @@ class Admin::ProductsController < Admin::BaseController
    	 	@product = Product.new
   	end
 
+  	##新建产品
   	def create
 	   	@product = Product.new(params[:product])
 
@@ -33,6 +35,7 @@ class Admin::ProductsController < Admin::BaseController
 	    end
 	end
 
+	##解冻产品
   	def normal
 	    @product = Product.find(params[:id])
 	    if @product.normal!
@@ -40,6 +43,7 @@ class Admin::ProductsController < Admin::BaseController
 	    end
   	end
 
+  	##冻结产品
   	def disabled
 	    @product = Product.find(params[:id])
 	    if @product.disabled!
@@ -47,6 +51,7 @@ class Admin::ProductsController < Admin::BaseController
 	    end
   	end
 
+  	##下载产品格式模板
   	def download
   		send_file("#{Rails.root}/public/template/product.csv")
   	end

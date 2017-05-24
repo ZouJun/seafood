@@ -1,5 +1,6 @@
 class Admin::StaffTransfersController < Admin::BaseController
 
+	##员工调动列表
 	def index
 		@search = StaffTransfer.search(params[:search])
     	@staff_transfers = @search.page(params[:page])
@@ -10,6 +11,7 @@ class Admin::StaffTransfersController < Admin::BaseController
 		@staff = Staff.find(params[:staff_id])
 	end
 
+	##员工调动处理方法
 	def create
 		@staff = Staff.find(params[:staff_id])
 		@staff_transfer = StaffTransfer.new
