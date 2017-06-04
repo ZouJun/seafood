@@ -85,7 +85,9 @@ module ApplicationHelper
       '六'
     end
   end
-##
+
+
+  ##随机数，背景图
   def random_back
     rand(2) == 0? 'session_body1' : 'session_body2'
   end
