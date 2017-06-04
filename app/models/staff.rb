@@ -185,6 +185,8 @@ class Staff < ActiveRecord::Base
             staff = Staff.create!(
               name: staff.name,
               role_id: role.try(:id) || Role.last.id,
+              password: '123456',
+              password_confirm: '1223456',
               no: staff_no,
               mobile: staff.mobile,
               gender: staff.gender,
