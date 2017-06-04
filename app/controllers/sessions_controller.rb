@@ -30,13 +30,14 @@ class SessionsController < ApplicationController
 
   ##用户退出登陆操作方法
   def destroy
+        current_staff.update_login_out
     if session[:staff_id]
       session[:staff_id] = nil
     end
     if session[:warehouse_id]
       session[:warehouse_id] = nil
     end
-    current_staff.update_login_out
+
     redirect_to sign_in_url
   end
 end
