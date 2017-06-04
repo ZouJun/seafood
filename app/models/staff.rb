@@ -5,7 +5,7 @@ class Staff < ActiveRecord::Base
   validates :name, :address, :mobile, :role_id, presence: true
   validates :no, presence: true
   validates :mobile, :no, uniqueness: true
-  validates :password, length: { in: 6..18 }
+  validates :password, length: { in: 6..18 }, on: :create
   # validates :password, format:{with: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$/}
   validates :password, presence: true, on: :create
 
