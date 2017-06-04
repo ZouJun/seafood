@@ -40,7 +40,7 @@
             <div class="form-group admin_staff_search admin_staff_top">
             <%= f.submit '搜索', class: "btn btn-primary" %>
             <%= link_to '新增', new_admin_staff_path, class: "btn btn-primary" %>
-            <%= link_to '批量导出', admin_staffs_path(:format => :xls), class: "btn btn-primary" %>
+            <%= link_to '批量导出', admin_staffs_path(:format => :xls, search: params[:search]), class: "btn btn-primary" %>
             <%= link_to '批量导入', import_page_admin_staffs_path, class: "btn btn-primary" %>
             <%= link_to '下载格式模板', admin_staffs_download_path, class: "btn btn-primary" %>
             
