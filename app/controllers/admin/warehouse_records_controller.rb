@@ -68,23 +68,28 @@ class Admin::WarehouseRecordsController < Admin::BaseController
 	  		@head = '最近7天'
 		end	
 		@type = params[:type].to_i
+			##有分配仓库
   		if current_warehouse
   			@warehouse = current_warehouse.name
+  			##出库
   			@out_data = (start_date..end_date).inject({}) do |h, date|
   				h.merge!(
 			  		date => current_warehouse.warehouse_records.out.where("created_at between ? and ?", date.midnight, date.next.midnight).sum(:qty)
   					)
   			end
 
+  			##入库
   			@in_data = (start_date..end_date).inject({}) do |h, date|
   				h.merge!(
 			  		date => current_warehouse.warehouse_records.in.where("created_at between ? and ?", date.midnight, date.next.midnight).sum(:qty)
   					)
   			end
+  			##库存
   			@remain_data = {}
   			current_warehouse.warehouse_products.each do |t|
   				@remain_data.store(t.product.name, t.qty)
   			end
+			##未进行仓库分配
 	  	else
 	  		@warehouse = ''
 	  		@out_data = (start_date..end_date).inject({}) do |h, date|

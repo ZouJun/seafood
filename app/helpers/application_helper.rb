@@ -1,5 +1,6 @@
 module ApplicationHelper
 
+  ##防止通过URL进行访问
   ##左侧菜单栏是否展开判断
   def can?(ids)
       permission_ids = []

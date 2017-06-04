@@ -19,12 +19,16 @@ class Admin::StaffsController < Admin::BaseController
 
   ##新增员工
   def create
+
     @staff = Staff.new(params[:staff])
-    if @staff.save!
+    if @staff.save! ##保存员工
+      ##如果分配仓库，就直接保存。未分仓库，则设置为ALL
       if params[:staff][:warehouse_id].blank? && @staff.department_id == 4
         @staff.update_attributes(warehouse_id: 0)
       end
+      ##系统日志记录
       SystemRecord.system_record('staff', @staff.id, '新增', current_staff.id, current_staff.role.name)
+      ##保存成功后，进行跳转
       redirect_to admin_staffs_path, notice: '添加成功'
     else
       redirect_to :back, alert: '添加失败'
@@ -36,8 +40,11 @@ class Admin::StaffsController < Admin::BaseController
 
   ##修改员工信息
   def update
+    ##修改员工信息
     if @staff.update_attributes(params[:staff])
+      ##系统日志
       SystemRecord.system_record('staff', @staff.id, '更新', current_staff.id, current_staff.role.name)
+      ##操作成功，进行跳转
       redirect_to admin_staffs_url, notice: '操作成功'
     else
       redirect_to :back, alert: '操作失败'
@@ -55,8 +62,11 @@ class Admin::StaffsController < Admin::BaseController
 
   ##对员工进行解冻
   def normal
+    ##解冻账号
     if @staff.normal!
+
       SystemRecord.system_record('staff',@staff.id,'解冻',current_staff.id, current_staff.role.name)
+
       redirect_to :back , notice:'操作成功'
     end
   end
@@ -64,6 +74,7 @@ class Admin::StaffsController < Admin::BaseController
   ##对员工进行冻结
   def disabled
     if @staff.disabled!
+      # @staff.update_attributes(status: -1)
       SystemRecord.system_record('staff',@staff.id,'冻结',current_staff.id, current_staff.role.name)
       redirect_to :back , notice:'操作成功'
     end
